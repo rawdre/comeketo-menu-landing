@@ -31,14 +31,77 @@ body {
   background: var(--navy-dark);
   color: var(--white);
   line-height: 1.6;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(201,165,78,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(201,165,78,0.02) 0%, transparent 50%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 80px,
+      rgba(201,165,78,0.012) 80px,
+      rgba(201,165,78,0.012) 81px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 80px,
+      rgba(201,165,78,0.012) 80px,
+      rgba(201,165,78,0.012) 81px
+    );
+  background-attachment: fixed;
 }
 .serif { font-family: 'Playfair Display', serif; }
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 5px rgba(201,165,78,0.3); }
+  50% { box-shadow: 0 0 20px rgba(201,165,78,0.5), 0 0 40px rgba(201,165,78,0.15); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 25%, #fff5cc 50%, var(--gold-light) 75%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* GLASSMORPHISM BASE */
+.glass {
+  background: rgba(36, 48, 68, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201,165,78,0.12);
+}
 
 /* HERO */
 .hero {
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
   text-align: center;
-  padding: 60px 20px 50px;
+  padding: 70px 20px 55px;
   border-bottom: 3px solid var(--gold);
   position: relative;
   overflow: hidden;
@@ -50,25 +113,30 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at 30% 40%, rgba(201,165,78,0.06) 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, rgba(201,165,78,0.04) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 40%, rgba(201,165,78,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(201,165,78,0.05) 0%, transparent 50%);
   pointer-events: none;
+}
+.hero-emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 12px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(201,165,78,0.4));
 }
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
   letter-spacing: 6px;
-  color: var(--gold);
   margin-bottom: 8px;
 }
 .hero .tagline {
   font-size: 1.1rem;
   color: var(--gray-300);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
   font-weight: 300;
 }
-.hero .fire-emoji { font-size: 1.5rem; }
 
 /* NAV PILLS */
 .nav-pills {
@@ -76,8 +144,10 @@ body {
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
-  padding: 20px;
-  background: var(--navy);
+  padding: 18px 20px;
+  background: rgba(26,35,50,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -90,13 +160,14 @@ body {
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   border: 1px solid transparent;
 }
 .nav-pills a:hover, .nav-pills a.active {
   color: var(--gold);
   border-color: var(--gold);
   background: rgba(201,165,78,0.1);
+  box-shadow: 0 0 12px rgba(201,165,78,0.15);
 }
 
 /* SECTIONS */
@@ -105,7 +176,6 @@ section { padding: 50px 0; }
 .section-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
-  color: var(--gold);
   text-align: center;
   margin-bottom: 10px;
 }
@@ -114,6 +184,13 @@ section { padding: 50px 0; }
   color: var(--gray-500);
   margin-bottom: 35px;
   font-size: 0.95rem;
+}
+.section-emoji {
+  display: block;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 8px rgba(201,165,78,0.3));
 }
 
 /* PACKAGE CARDS */
@@ -124,40 +201,68 @@ section { padding: 50px 0; }
   margin-bottom: 30px;
 }
 .pkg-card {
-  background: var(--navy-light);
-  border: 1px solid rgba(201,165,78,0.15);
-  border-radius: 12px;
-  padding: 24px;
+  background: rgba(36,48,68,0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201,165,78,0.12);
+  border-radius: 16px;
+  padding: 26px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
+  overflow: hidden;
 }
+.pkg-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(201,165,78,0.05) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.pkg-card:hover::before, .pkg-card.selected::before { opacity: 1; }
 .pkg-card:hover, .pkg-card.selected {
   border-color: var(--gold);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(201,165,78,0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(201,165,78,0.2), 0 0 20px rgba(201,165,78,0.08);
+}
+.pkg-card.selected {
+  animation: pulse-gold 2.5s ease-in-out infinite;
 }
 .pkg-card.selected::after {
   content: '✓';
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 14px;
+  right: 14px;
   background: var(--gold);
   color: var(--navy);
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
-.pkg-card .emoji { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-.pkg-card h3 { color: var(--gold-light); font-size: 1.1rem; margin-bottom: 4px; }
-.pkg-card .price { font-size: 1.4rem; font-weight: 700; color: var(--white); }
+.pkg-card .card-emoji {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(201,165,78,0.3));
+}
+.pkg-card h3 { color: var(--gold-light); font-size: 1.1rem; margin-bottom: 6px; }
+.pkg-card .price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
 .pkg-card .price span { font-size: 0.8rem; color: var(--gray-500); font-weight: 400; }
-.pkg-card .details { font-size: 0.82rem; color: var(--gray-500); margin-top: 8px; line-height: 1.5; }
+.pkg-card .details { font-size: 0.82rem; color: var(--gray-500); margin-top: 10px; line-height: 1.5; }
 
 /* TIER SELECTOR */
 .tier-selector {
@@ -168,28 +273,63 @@ section { padding: 50px 0; }
   margin-bottom: 30px;
 }
 .tier-btn {
-  padding: 10px 20px;
-  border: 1px solid rgba(201,165,78,0.3);
-  background: var(--navy-light);
+  padding: 10px 22px;
+  border: 1px solid rgba(201,165,78,0.25);
+  background: rgba(36,48,68,0.5);
+  backdrop-filter: blur(8px);
   color: var(--gray-300);
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   font-family: 'Inter', sans-serif;
 }
 .tier-btn:hover, .tier-btn.selected {
   border-color: var(--gold);
   background: rgba(201,165,78,0.15);
   color: var(--gold);
+  box-shadow: 0 0 15px rgba(201,165,78,0.12);
+}
+
+/* SELECTION COUNTER */
+.selection-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 4px;
+  transition: all 0.3s;
+}
+.selection-counter.within {
+  background: rgba(34,197,94,0.12);
+  color: var(--green);
+  border: 1px solid rgba(34,197,94,0.3);
+}
+.selection-counter.full {
+  background: rgba(201,165,78,0.15);
+  color: var(--gold);
+  border: 1px solid rgba(201,165,78,0.4);
+}
+.selection-counters-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 15px;
+  min-height: 34px;
 }
 
 /* CALCULATOR */
 .calculator {
-  background: var(--navy-light);
-  border: 1px solid rgba(201,165,78,0.2);
-  border-radius: 16px;
-  padding: 30px;
+  background: rgba(36,48,68,0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(201,165,78,0.18);
+  border-radius: 20px;
+  padding: 32px;
   margin-top: 30px;
 }
 .calc-row {
@@ -214,6 +354,7 @@ input[type="range"] {
   flex: 1;
   accent-color: var(--gold);
   min-width: 150px;
+  height: 6px;
 }
 input[type="number"] {
   width: 80px;
@@ -221,19 +362,25 @@ input[type="number"] {
   background: var(--navy);
   border: 1px solid rgba(201,165,78,0.3);
   color: var(--white);
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
   text-align: center;
   font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
-input[type="number"]:focus { outline: none; border-color: var(--gold); }
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(201,165,78,0.2);
+}
 
 /* PRICE BREAKDOWN */
 .price-breakdown {
-  background: var(--navy);
-  border-radius: 12px;
-  padding: 20px;
-  margin-top: 20px;
+  background: rgba(17,24,39,0.7);
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 22px;
+  border: 1px solid rgba(201,165,78,0.08);
 }
 .price-line {
   display: flex;
@@ -241,12 +388,13 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
   padding: 8px 0;
   font-size: 0.95rem;
   color: var(--gray-300);
+  transition: color 0.3s;
 }
 .price-line.total {
   border-top: 2px solid var(--gold);
   margin-top: 10px;
   padding-top: 14px;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--gold);
 }
@@ -255,7 +403,7 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
 
 /* MENU SECTIONS */
 .menu-category {
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 .menu-category h3 {
   color: var(--gold);
@@ -265,7 +413,11 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
   border-bottom: 1px solid rgba(201,165,78,0.2);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+}
+.menu-category h3 .cat-emoji {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 1px 4px rgba(201,165,78,0.3));
 }
 .menu-grid {
   display: grid;
@@ -274,47 +426,68 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
 }
 .menu-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
   padding: 10px 14px;
-  background: var(--navy-light);
-  border-radius: 8px;
+  background: rgba(36,48,68,0.5);
+  border-radius: 10px;
   font-size: 0.9rem;
   border: 1px solid transparent;
-  transition: border-color 0.2s;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
-.menu-item:hover { border-color: rgba(201,165,78,0.2); }
-.menu-item .name { color: var(--gray-200); }
-.menu-item .upcharge {
-  color: var(--gold);
-  font-weight: 600;
-  font-size: 0.85rem;
+.menu-item:hover { border-color: rgba(201,165,78,0.25); background: rgba(36,48,68,0.7); }
+.menu-item.selected-item {
+  border-color: var(--gold);
+  background: rgba(201,165,78,0.08);
+  box-shadow: 0 0 10px rgba(201,165,78,0.1);
+}
+.menu-item.disabled-item {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.menu-item input[type="checkbox"] {
+  accent-color: var(--gold);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.menu-item .name { color: var(--gray-200); flex: 1; }
+.menu-item .badge {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   white-space: nowrap;
 }
-.menu-item.standard .tag {
-  background: rgba(34,197,94,0.15);
+.menu-item .badge-standard {
+  background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(34,197,94,0.08));
   color: var(--green);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 600;
+  border: 1px solid rgba(34,197,94,0.25);
 }
-.menu-item.premium .tag {
-  background: rgba(201,165,78,0.15);
-  color: var(--gold);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 600;
+.menu-item .badge-premium {
+  background: linear-gradient(135deg, rgba(201,165,78,0.18), rgba(201,165,78,0.08));
+  color: var(--gold-light);
+  border: 1px solid rgba(201,165,78,0.3);
 }
 
-/* UPGRADE CHECKBOXES */
+/* UPGRADE CHECKBOXES in calculator */
 .upgrades-section { margin-top: 20px; }
-.upgrade-group { margin-bottom: 20px; }
+.upgrade-group { margin-bottom: 22px; }
 .upgrade-group h4 {
   color: var(--gold-light);
   font-size: 0.95rem;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.upgrade-group h4 .ug-emoji {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 1px 4px rgba(201,165,78,0.25));
 }
 .upgrade-grid {
   display: grid;
@@ -326,13 +499,23 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
   align-items: center;
   gap: 10px;
   padding: 8px 12px;
-  background: var(--navy);
-  border-radius: 6px;
+  background: rgba(17,24,39,0.5);
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s;
   font-size: 0.88rem;
+  border: 1px solid transparent;
 }
-.upgrade-item:hover { background: rgba(201,165,78,0.08); }
+.upgrade-item:hover { background: rgba(201,165,78,0.06); border-color: rgba(201,165,78,0.12); }
+.upgrade-item.selected-item {
+  border-color: rgba(201,165,78,0.3);
+  background: rgba(201,165,78,0.06);
+}
+.upgrade-item.disabled-item {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .upgrade-item input[type="checkbox"] {
   accent-color: var(--gold);
   width: 16px;
@@ -340,7 +523,14 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
   cursor: pointer;
 }
 .upgrade-item .up-name { flex: 1; color: var(--gray-200); }
-.upgrade-item .up-price { color: var(--gold); font-weight: 600; font-size: 0.85rem; }
+.upgrade-item .up-price {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: rgba(201,165,78,0.1);
+  padding: 2px 8px;
+  border-radius: 5px;
+}
 
 /* CTA BUTTONS */
 .cta-row {
@@ -352,7 +542,7 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
 }
 .btn {
   padding: 14px 32px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
@@ -360,34 +550,58 @@ input[type="number"]:focus { outline: none; border-color: var(--gold); }
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: none;
   font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 .btn-gold {
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
   color: var(--navy);
+  box-shadow: 0 4px 15px rgba(201,165,78,0.3);
 }
-.btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(201,165,78,0.4);
+}
 .btn-outline {
   background: transparent;
   color: var(--gold);
   border: 2px solid var(--gold);
 }
-.btn-outline:hover { background: rgba(201,165,78,0.1); }
+.btn-outline:hover {
+  background: rgba(201,165,78,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(201,165,78,0.15);
+}
+
+/* PRICING BADGE */
+.price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(201,165,78,0.15), rgba(201,165,78,0.05));
+  border: 1px solid rgba(201,165,78,0.25);
+  color: var(--gold-light);
+  font-size: 0.85rem;
+}
 
 /* FOOTER */
 footer {
-  background: var(--navy);
+  background: rgba(26,35,50,0.9);
+  backdrop-filter: blur(10px);
   border-top: 2px solid var(--gold);
-  padding: 40px 20px;
+  padding: 45px 20px;
   text-align: center;
 }
 footer h3 {
   font-family: 'Playfair Display', serif;
-  color: var(--gold);
-  font-size: 1.3rem;
-  margin-bottom: 15px;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
 }
 footer .contact-info {
   display: flex;
@@ -400,18 +614,20 @@ footer .contact-info a {
   color: var(--gray-300);
   text-decoration: none;
   font-size: 0.95rem;
-  transition: color 0.2s;
+  transition: all 0.3s;
+  padding: 6px 12px;
+  border-radius: 8px;
 }
-footer .contact-info a:hover { color: var(--gold); }
+footer .contact-info a:hover { color: var(--gold); background: rgba(201,165,78,0.06); }
 footer .legal {
   color: var(--gray-500);
   font-size: 0.8rem;
-  margin-top: 15px;
+  margin-top: 18px;
 }
 
 /* RESPONSIVE */
 @media (max-width: 640px) {
-  .hero { padding: 40px 15px 35px; }
+  .hero { padding: 45px 15px 38px; }
   .hero h1 { letter-spacing: 3px; }
   .nav-pills { gap: 6px; padding: 12px 10px; }
   .nav-pills a { padding: 6px 12px; font-size: 0.78rem; }
@@ -421,16 +637,10 @@ footer .legal {
   .packages-grid { grid-template-columns: 1fr; }
   .menu-grid { grid-template-columns: 1fr; }
   .upgrade-grid { grid-template-columns: 1fr; }
-  .price-line.total { font-size: 1.1rem; }
+  .price-line.total { font-size: 1.15rem; }
   footer .contact-info { flex-direction: column; gap: 10px; }
+  .selection-counter { font-size: 0.72rem; padding: 4px 10px; }
 }
-
-/* ANIMATIONS */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.fade-in { animation: fadeInUp 0.5s ease forwards; }
 
 /* COLLAPSIBLE */
 .collapsible-header {
@@ -439,9 +649,11 @@ footer .legal {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: color 0.3s;
 }
+.collapsible-header:hover { color: var(--gold-light); }
 .collapsible-header .arrow {
-  transition: transform 0.3s;
+  transition: transform 0.4s ease;
   font-size: 0.8rem;
   color: var(--gray-500);
 }
@@ -449,17 +661,23 @@ footer .legal {
 .collapsible-body {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease;
+  transition: max-height 0.5s ease;
 }
-.collapsible-body.open { max-height: 2000px; }
+.collapsible-body.open { max-height: 3000px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--navy-dark); }
+::-webkit-scrollbar-thumb { background: rgba(201,165,78,0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,165,78,0.5); }
 </style>
 </head>
 <body>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="fire-emoji">🔥</div>
-  <h1>COMEKETO CATERING</h1>
+  <span class="hero-emoji">🔥</span>
+  <h1 class="shimmer-text">COMEKETO CATERING</h1>
   <p class="tagline">Brazilian BBQ & Catering</p>
 </header>
 
@@ -474,31 +692,33 @@ footer .legal {
 <!-- PACKAGES -->
 <section id="packages">
   <div class="container">
-    <h2 class="section-title">Choose Your Style</h2>
-    <p class="section-subtitle">4 service types, each with flexible tiers to match your event</p>
+    <div class="reveal">
+      <span class="section-emoji">✨</span>
+      <h2 class="section-title shimmer-text">Choose Your Style</h2>
+      <p class="section-subtitle">4 service types, each with flexible tiers to match your event</p>
+    </div>
 
-    <!-- Service Type Cards -->
     <div class="packages-grid" id="serviceCards">
-      <div class="pkg-card selected" data-service="churrasco" onclick="selectService(this)">
-        <span class="emoji">🔥</span>
+      <div class="pkg-card selected reveal" data-service="churrasco" onclick="selectService(this)">
+        <span class="card-emoji">🔥</span>
         <h3>Brazilian BBQ (Churrasco)</h3>
         <div class="price">$29.95 – $46.90 <span>/person</span></div>
         <div class="details">On-site grilling, upgradeable to Rodizio tableside service with skewers</div>
       </div>
-      <div class="pkg-card" data-service="buffet" onclick="selectService(this)">
-        <span class="emoji">🍽️</span>
+      <div class="pkg-card reveal" data-service="buffet" onclick="selectService(this)">
+        <span class="card-emoji">🍽️</span>
         <h3>Buffet</h3>
         <div class="price">$24.90 – $37.90 <span>/person</span></div>
         <div class="details">Self-serve attended — we handle setup, breakdown & refreshing</div>
       </div>
-      <div class="pkg-card" data-service="plated" onclick="selectService(this)">
-        <span class="emoji">🥂</span>
+      <div class="pkg-card reveal" data-service="plated" onclick="selectService(this)">
+        <span class="card-emoji">🥂</span>
         <h3>Traditional Plated</h3>
         <div class="price">$32.40 – $44.10 <span>/person</span></div>
         <div class="details">Individual seated service — each guest served at table</div>
       </div>
-      <div class="pkg-card" data-service="family" onclick="selectService(this)">
-        <span class="emoji">👨‍👩‍👧‍👦</span>
+      <div class="pkg-card reveal" data-service="family" onclick="selectService(this)">
+        <span class="card-emoji">👨‍👩‍👧‍👦</span>
         <h3>Family Style</h3>
         <div class="price">$32.40 – $44.10 <span>/person</span></div>
         <div class="details">Shared platters at table — hearty portions designed for sharing</div>
@@ -513,10 +733,13 @@ footer .legal {
 <!-- CALCULATOR -->
 <section id="calculator">
   <div class="container">
-    <h2 class="section-title">💰 Instant Price Calculator</h2>
-    <p class="section-subtitle">Build your package and see real-time pricing</p>
+    <div class="reveal">
+      <span class="section-emoji">💰</span>
+      <h2 class="section-title shimmer-text">Instant Price Calculator</h2>
+      <p class="section-subtitle">Select your items and see real-time pricing</p>
+    </div>
 
-    <div class="calculator">
+    <div class="calculator reveal">
       <!-- Guest Count -->
       <div class="calc-row">
         <label>👥 Guests</label>
@@ -527,25 +750,26 @@ footer .legal {
       </div>
 
       <!-- Selected Package Summary -->
-      <div id="selectedSummary" style="color:var(--gray-300);font-size:0.95rem;margin-bottom:15px;"></div>
+      <div id="selectedSummary" style="color:var(--gray-300);font-size:0.95rem;margin-bottom:10px;text-align:center;"></div>
 
-      <!-- Premium Upgrades -->
+      <!-- Selection Counters -->
+      <div class="selection-counters-wrap" id="selectionCounters"></div>
+
+      <!-- Protein Selections -->
       <div class="upgrades-section">
-        <h4 style="color:var(--gold);margin-bottom:15px;">⭐ Premium Upgrades <span style="color:var(--gray-500);font-weight:400;font-size:0.85rem;">(additional per person)</span></h4>
-
         <div class="upgrade-group">
-          <h4>🥩 Premium Proteins</h4>
-          <div class="upgrade-grid" id="proteinUpgrades"></div>
+          <h4><span class="ug-emoji">🥩</span> Proteins <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <div class="upgrade-grid" id="proteinSelections"></div>
         </div>
 
         <div class="upgrade-group">
-          <h4>🥗 Premium Salads</h4>
-          <div class="upgrade-grid" id="saladUpgrades"></div>
+          <h4><span class="ug-emoji">🥗</span> Salads <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <div class="upgrade-grid" id="saladSelections"></div>
         </div>
 
         <div class="upgrade-group">
-          <h4>🍟 Premium Sides</h4>
-          <div class="upgrade-grid" id="sideUpgrades"></div>
+          <h4><span class="ug-emoji">🍟</span> Sides <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <div class="upgrade-grid" id="sideSelections"></div>
         </div>
       </div>
 
@@ -562,10 +786,10 @@ footer .legal {
 
       <!-- CTA Buttons -->
       <div class="cta-row">
-        <a class="btn btn-gold" id="whatsappBtn" href="https://wa.me/19783811212?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">
+        <a class="btn btn-gold" id="whatsappBtn" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">
           💬 Get a Quote on WhatsApp
         </a>
-        <a class="btn btn-outline" href="https://wa.me/19783811212?text=Hi!%20I'd%20like%20to%20book%20a%20tasting." target="_blank">
+        <a class="btn btn-outline" id="tastingBtn" href="#" onclick="sendTastingEmail(); return false;">
           🍽️ Book a Tasting
         </a>
       </div>
@@ -576,199 +800,202 @@ footer .legal {
 <!-- FULL MENU -->
 <section id="menu">
   <div class="container">
-    <h2 class="section-title">📋 Full Menu</h2>
-    <p class="section-subtitle">99 items across all categories — standard included, ⭐ premium at upcharge</p>
+    <div class="reveal">
+      <span class="section-emoji">📋</span>
+      <h2 class="section-title shimmer-text">Full Menu</h2>
+      <p class="section-subtitle">99 items across all categories — standard at no upcharge, ⭐ premium at upcharge</p>
+    </div>
 
     <!-- Brazilian Mains -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header open" onclick="toggleCollapse(this)">
-        🔥 Brazilian Mains (Churrasco) <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🔥</span> Brazilian Mains (Churrasco)</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body open">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">Top Sirloin</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Flank Steak w/ Chimichurri</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Garlic Prime Sirloin</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Chicken Wrapped in Bacon</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Chicken Wings</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Brazilian Style Sausage</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Pork Loin w/ Garlic Butter</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Garlic Steak</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item premium"><span class="name">Leg of Lamb</span><span class="upcharge">+$2.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Prime Sirloin (Picanha)</span><span class="upcharge">+$3.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Garlic Prime Sirloin ★</span><span class="upcharge">+$3.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Beef Short Ribs</span><span class="upcharge">+$5.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Lamb Chops</span><span class="upcharge">+$7.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Filet Mignon</span><span class="upcharge">+$8.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Ribeye</span><span class="upcharge">+$9.00/pp</span></div>
+        <div class="menu-grid" data-category="protein" data-section="churrasco-mains">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Top Sirloin</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Flank Steak w/ Chimichurri</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Garlic Prime Sirloin</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Chicken Wrapped in Bacon</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Chicken Wings</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Brazilian Style Sausage</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Pork Loin w/ Garlic Butter</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Garlic Steak</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="2.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Leg of Lamb</span><span class="badge badge-premium">+$2.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Prime Sirloin (Picanha)</span><span class="badge badge-premium">+$3.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Garlic Prime Sirloin ★</span><span class="badge badge-premium">+$3.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="5.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Beef Short Ribs</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="7.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Lamb Chops</span><span class="badge badge-premium">+$7.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="8.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Filet Mignon</span><span class="badge badge-premium">+$8.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="9.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Ribeye</span><span class="badge badge-premium">+$9.00/pp</span></label>
         </div>
       </div>
     </div>
 
     <!-- Traditional Mains: Beef -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🥩 Traditional Mains — Beef <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥩</span> Traditional Mains — Beef</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">Roast Beef</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Beef or Chicken Fajitas</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Beef Stroganoff</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Beef Brisket w/ Madeira Sauce</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item premium"><span class="name">Steak Florentine</span><span class="upcharge">+$7.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Beef Wellington</span><span class="upcharge">+$10.00/pp</span></div>
+        <div class="menu-grid" data-category="protein" data-section="beef-mains">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Roast Beef</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Beef or Chicken Fajitas</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Beef Stroganoff</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Beef Brisket w/ Madeira Sauce</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="7.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Steak Florentine</span><span class="badge badge-premium">+$7.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="10.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Beef Wellington</span><span class="badge badge-premium">+$10.00/pp</span></label>
         </div>
       </div>
     </div>
 
     <!-- Traditional Mains: Chicken -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🍗 Traditional Mains — Chicken <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🍗</span> Traditional Mains — Chicken</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">½ Chicken</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Boneless Chicken</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Chicken or Veal Marsala</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Chicken Pasta Primavera</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Chicken, Beef or Tofu Stir Fry</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Chicken Broccoli Fettuccine Alfredo</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Coq Au Vin</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Oven Roasted Garlic & Rosemary Chicken</span><span class="tag">INCLUDED</span></div>
+        <div class="menu-grid" data-category="protein" data-section="chicken-mains">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">½ Chicken</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Boneless Chicken</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Chicken or Veal Marsala</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Chicken Pasta Primavera</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Chicken, Beef or Tofu Stir Fry</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Chicken Broccoli Fettuccine Alfredo</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Coq Au Vin</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Oven Roasted Garlic & Rosemary Chicken</span><span class="badge badge-standard">NO UPCHARGE</span></label>
         </div>
       </div>
     </div>
 
     <!-- Traditional Mains: Pork -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🥓 Traditional Mains — Pork <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥓</span> Traditional Mains — Pork</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">Pork Sausage</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Pork Tenderloin</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Pork Chops</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item premium"><span class="name">Pig Roast</span><span class="upcharge">+$6.50/pp</span></div>
+        <div class="menu-grid" data-category="protein" data-section="pork-mains">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Pork Sausage</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Pork Tenderloin</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Pork Chops</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="6.50" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Pig Roast</span><span class="badge badge-premium">+$6.50/pp</span></label>
         </div>
       </div>
     </div>
 
     <!-- Traditional Mains: Seafood -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🐟 Traditional Mains — Seafood <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🐟</span> Traditional Mains — Seafood</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item premium"><span class="name">Salmon</span><span class="upcharge">+$8.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Sea Bass</span><span class="upcharge">+$9.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Haddock</span><span class="upcharge">+$9.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Sesame Soy Tilapia</span><span class="upcharge">+$10.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Baked Stuffed Seafood</span><span class="upcharge">+$10.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Tuna Steaks</span><span class="upcharge">+$11.00/pp</span></div>
+        <div class="menu-grid" data-category="protein" data-section="seafood-mains">
+          <label class="menu-item premium"><input type="checkbox" data-price="8.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Salmon</span><span class="badge badge-premium">+$8.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="9.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Sea Bass</span><span class="badge badge-premium">+$9.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="9.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Haddock</span><span class="badge badge-premium">+$9.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="10.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Sesame Soy Tilapia</span><span class="badge badge-premium">+$10.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="10.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Baked Stuffed Seafood</span><span class="badge badge-premium">+$10.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="11.00" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Tuna Steaks</span><span class="badge badge-premium">+$11.00/pp</span></label>
         </div>
       </div>
     </div>
 
     <!-- Traditional Mains: Vegetarian -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🥬 Traditional Mains — Vegetarian <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥬</span> Traditional Mains — Vegetarian</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">Tofu Steaks</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Stuffed Peppers</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Radicchio Cups</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Stuffed Eggplant</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Lentil Loaf</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Vegetable Lasagna</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Cauliflower Steak</span><span class="tag">INCLUDED</span></div>
+        <div class="menu-grid" data-category="protein" data-section="veg-mains">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Tofu Steaks</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Stuffed Peppers</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Radicchio Cups</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Stuffed Eggplant</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Lentil Loaf</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Vegetable Lasagna</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Cauliflower Steak</span><span class="badge badge-standard">NO UPCHARGE</span></label>
         </div>
       </div>
     </div>
 
     <!-- Salads -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🥗 Salads <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥗</span> Salads</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">Garden Salad</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Caesar Salad</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item premium"><span class="name">Broccoli Salad</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Chef's Salad</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Pasta Salad</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">The Wedge</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Quinoa Chickpea Feta w/ Balsamic</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Vinaigrette Salad</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Spinach Arugula Green Salad</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Potato Salad</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Roasted Zucchini & Summer Squash</span><span class="upcharge">+$3.50/pp</span></div>
-          <div class="menu-item premium"><span class="name">Quinoa Spinach Salad</span><span class="upcharge">+$4.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Mango & Mint Salad</span><span class="upcharge">+$4.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Brazilian Tropical Corn Salad</span><span class="upcharge">+$4.25/pp</span></div>
-          <div class="menu-item premium"><span class="name">Asian Vegetable Salad</span><span class="upcharge">+$5.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Beet & Radish Salad</span><span class="upcharge">+$6.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Brazilian Chicken Salad (Salpicão)</span><span class="upcharge">+$6.50/pp</span></div>
+        <div class="menu-grid" data-category="salad" data-section="salads">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Garden Salad</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Caesar Salad</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Broccoli Salad</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Chef's Salad</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Pasta Salad</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">The Wedge</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Quinoa Chickpea Feta w/ Balsamic</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Vinaigrette Salad</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Spinach Arugula Green Salad</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Potato Salad</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Roasted Zucchini & Summer Squash</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="4.00" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Quinoa Spinach Salad</span><span class="badge badge-premium">+$4.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="4.00" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Mango & Mint Salad</span><span class="badge badge-premium">+$4.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="4.25" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Brazilian Tropical Corn Salad</span><span class="badge badge-premium">+$4.25/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="5.00" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Asian Vegetable Salad</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="6.00" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Beet & Radish Salad</span><span class="badge badge-premium">+$6.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="6.50" data-type="salad" onchange="onMenuSelect(this)"><span class="name">Brazilian Chicken Salad (Salpicão)</span><span class="badge badge-premium">+$6.50/pp</span></label>
         </div>
       </div>
     </div>
 
     <!-- Brazilian Sides -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🇧🇷 Brazilian Sides <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🇧🇷</span> Brazilian Sides</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">Rice</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Beans</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Tropeiro Beans</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Mashed Potatoes</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Collard Greens</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Yuca</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Plantains</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Brazilian Risotto (Piamontese Rice)</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Garlic Bread</span><span class="tag">INCLUDED</span></div>
+        <div class="menu-grid" data-category="side" data-section="br-sides">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Rice</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Beans</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Tropeiro Beans</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Mashed Potatoes</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Collard Greens</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Yuca</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Plantains</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Brazilian Risotto (Piamontese Rice)</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Garlic Bread</span><span class="badge badge-standard">NO UPCHARGE</span></label>
         </div>
       </div>
     </div>
 
     <!-- Traditional Sides -->
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        🍟 Traditional Sides <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🍟</span> Traditional Sides</span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
-        <div class="menu-grid">
-          <div class="menu-item standard"><span class="name">Baked Potatoes</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Oven Roasted Potatoes</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Spanish Rice</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Spinach Rice</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Brown Rice</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Wild Rice</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Couscous</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Quinoa</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Carrots (savory/tarragon/glazed)</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Sautéed Green Beans</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Summer Squash & Zucchini</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Broccoli</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Cauliflower</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Vegetable Medley</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Mac & Cheese</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item standard"><span class="name">Asparagus & Broccoli Mix</span><span class="tag">INCLUDED</span></div>
-          <div class="menu-item premium"><span class="name">Scalloped Potatoes</span><span class="upcharge">+$2.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Twice Baked Potatoes</span><span class="upcharge">+$2.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Mashed Potato Casserole</span><span class="upcharge">+$2.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Confetti Rice</span><span class="upcharge">+$2.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Risotto</span><span class="upcharge">+$2.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Steamed Asparagus</span><span class="upcharge">+$3.00/pp</span></div>
-          <div class="menu-item premium"><span class="name">Papa Rellena</span><span class="upcharge">+$3.50/pp</span></div>
+        <div class="menu-grid" data-category="side" data-section="trad-sides">
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Baked Potatoes</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Oven Roasted Potatoes</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Spanish Rice</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Spinach Rice</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Brown Rice</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Wild Rice</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Couscous</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Quinoa</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Carrots (savory/tarragon/glazed)</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Sautéed Green Beans</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Summer Squash & Zucchini</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Broccoli</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Cauliflower</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Vegetable Medley</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Mac & Cheese</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Asparagus & Broccoli Mix</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="2.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Scalloped Potatoes</span><span class="badge badge-premium">+$2.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="2.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Twice Baked Potatoes</span><span class="badge badge-premium">+$2.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="2.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Mashed Potato Casserole</span><span class="badge badge-premium">+$2.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="2.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Confetti Rice</span><span class="badge badge-premium">+$2.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="2.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Risotto</span><span class="badge badge-premium">+$2.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Steamed Asparagus</span><span class="badge badge-premium">+$3.00/pp</span></label>
+          <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="side" onchange="onMenuSelect(this)"><span class="name">Papa Rellena</span><span class="badge badge-premium">+$3.50/pp</span></label>
         </div>
       </div>
     </div>
@@ -777,16 +1004,18 @@ footer .legal {
 
 <!-- FOOTER -->
 <footer id="contact">
-  <h3>Let's Plan Your Event</h3>
-  <div class="contact-info">
-    <a href="tel:+19783811212">📞 978-381-1212</a>
-    <a href="mailto:contact@comeketocatering.com">✉️ contact@comeketocatering.com</a>
-    <a href="https://comeketocatering.com" target="_blank">🌐 comeketocatering.com</a>
+  <div class="reveal">
+    <h3 class="shimmer-text">Let's Plan Your Event</h3>
+    <div class="contact-info">
+      <a href="tel:+19783811212">📞 978-381-1212</a>
+      <a href="mailto:team@comeketocatering.com">✉️ team@comeketocatering.com</a>
+      <a href="https://comeketocatering.com" target="_blank">🌐 comeketocatering.com</a>
+    </div>
+    <div class="cta-row" style="margin-top:20px;">
+      <a class="btn btn-gold" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">💬 WhatsApp Us</a>
+    </div>
+    <p class="legal">© 2026 Comeketo Catering · 199 Main St, Fitchburg, MA · All prices subject to change</p>
   </div>
-  <div class="cta-row" style="margin-top:20px;">
-    <a class="btn btn-gold" href="https://wa.me/19783811212?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">💬 WhatsApp Us</a>
-  </div>
-  <p class="legal">© 2026 Comeketo Catering · 199 Main St, Fitchburg, MA · All prices subject to change</p>
 </footer>
 
 <script>
@@ -831,74 +1060,94 @@ const packages = {
   }
 };
 
-const premiumProteins = [
-  { name: 'Leg of Lamb', price: 2.00 },
-  { name: 'Prime Sirloin (Picanha)', price: 3.00 },
-  { name: 'Beef Short Ribs', price: 5.00 },
-  { name: 'Pig Roast', price: 6.50 },
-  { name: 'Steak Florentine', price: 7.00 },
-  { name: 'Lamb Chops', price: 7.00 },
-  { name: 'Filet Mignon', price: 8.00 },
-  { name: 'Salmon', price: 8.00 },
-  { name: 'Sea Bass', price: 9.00 },
-  { name: 'Haddock', price: 9.00 },
-  { name: 'Ribeye', price: 9.00 },
-  { name: 'Sesame Soy Tilapia', price: 10.00 },
-  { name: 'Baked Stuffed Seafood', price: 10.00 },
-  { name: 'Beef Wellington', price: 10.00 },
-  { name: 'Tuna Steaks', price: 11.00 }
-];
-
-const premiumSalads = [
-  { name: 'Broccoli Salad', price: 3.50 },
-  { name: "Chef's Salad", price: 3.50 },
-  { name: 'Pasta Salad', price: 3.50 },
-  { name: 'The Wedge', price: 3.50 },
-  { name: 'Quinoa Chickpea Feta', price: 3.50 },
-  { name: 'Vinaigrette Salad', price: 3.50 },
-  { name: 'Spinach Arugula', price: 3.50 },
-  { name: 'Potato Salad', price: 3.50 },
-  { name: 'Roasted Zucchini & Squash', price: 3.50 },
-  { name: 'Quinoa Spinach Salad', price: 4.00 },
-  { name: 'Mango & Mint Salad', price: 4.00 },
-  { name: 'Brazilian Tropical Corn', price: 4.25 },
-  { name: 'Asian Vegetable Salad', price: 5.00 },
-  { name: 'Beet & Radish Salad', price: 6.00 },
-  { name: 'Salpicão (Brazilian Chicken)', price: 6.50 }
-];
-
-const premiumSides = [
-  { name: 'Scalloped Potatoes', price: 2.00 },
-  { name: 'Twice Baked Potatoes', price: 2.00 },
-  { name: 'Mashed Potato Casserole', price: 2.00 },
-  { name: 'Confetti Rice', price: 2.00 },
-  { name: 'Risotto', price: 2.00 },
-  { name: 'Steamed Asparagus', price: 3.00 },
-  { name: 'Papa Rellena', price: 3.50 }
-];
-
 // ===== STATE =====
 let selectedService = 'churrasco';
 let selectedTierIdx = 0;
 
-// ===== INIT =====
-function init() {
-  renderUpgrades('proteinUpgrades', premiumProteins);
-  renderUpgrades('saladUpgrades', premiumSalads);
-  renderUpgrades('sideUpgrades', premiumSides);
-  renderTiers();
+// ===== SELECTION LOGIC =====
+function getCurrentLimits() {
+  const tier = packages[selectedService].tiers[selectedTierIdx];
+  return { protein: tier.meats, side: tier.sides, salad: tier.salads };
+}
+
+function getSelectedCounts() {
+  const counts = { protein: 0, side: 0, salad: 0 };
+  // Count from full menu section
+  document.querySelectorAll('#menu input[type="checkbox"]:checked').forEach(cb => {
+    const type = cb.dataset.type;
+    if (counts[type] !== undefined) counts[type]++;
+  });
+  return counts;
+}
+
+function getSelectedItems() {
+  const items = { protein: [], side: [], salad: [] };
+  document.querySelectorAll('#menu input[type="checkbox"]:checked').forEach(cb => {
+    const type = cb.dataset.type;
+    const name = cb.closest('.menu-item').querySelector('.name').textContent;
+    const price = parseFloat(cb.dataset.price) || 0;
+    if (items[type]) items[type].push({ name, price });
+  });
+  return items;
+}
+
+function onMenuSelect(checkbox) {
+  const type = checkbox.dataset.type;
+  const limits = getCurrentLimits();
+  const counts = getSelectedCounts();
+
+  // If checking and at limit, prevent
+  if (checkbox.checked && counts[type] > limits[type]) {
+    checkbox.checked = false;
+    return;
+  }
+
+  updateSelectionUI();
   calculate();
 }
 
-function renderUpgrades(containerId, items) {
-  const el = document.getElementById(containerId);
-  el.innerHTML = items.map((item, i) =>
-    `<label class="upgrade-item">
-      <input type="checkbox" data-price="${item.price}" onchange="calculate()">
-      <span class="up-name">${item.name}</span>
-      <span class="up-price">+$${item.price.toFixed(2)}</span>
-    </label>`
-  ).join('');
+function updateSelectionUI() {
+  const limits = getCurrentLimits();
+  const counts = getSelectedCounts();
+
+  // Update counters display
+  const counterEl = document.getElementById('selectionCounters');
+  const labels = { protein: '🥩 Proteins', side: '🍟 Sides', salad: '🥗 Salads' };
+  counterEl.innerHTML = Object.keys(limits).map(type => {
+    const c = counts[type];
+    const l = limits[type];
+    const cls = c >= l ? 'full' : 'within';
+    return `<span class="selection-counter ${cls}">${labels[type]}: ${c} of ${l}</span>`;
+  }).join('');
+
+  // Enable/disable unchecked items based on limits
+  ['protein', 'side', 'salad'].forEach(type => {
+    const atLimit = counts[type] >= limits[type];
+    document.querySelectorAll(`#menu input[data-type="${type}"]`).forEach(cb => {
+      const item = cb.closest('.menu-item');
+      if (!cb.checked && atLimit) {
+        item.classList.add('disabled-item');
+        cb.disabled = true;
+      } else {
+        item.classList.remove('disabled-item');
+        cb.disabled = false;
+      }
+      // Visual selected state
+      if (cb.checked) {
+        item.classList.add('selected-item');
+      } else {
+        item.classList.remove('selected-item');
+      }
+    });
+  });
+}
+
+// ===== INIT =====
+function init() {
+  renderTiers();
+  updateSelectionUI();
+  calculate();
+  initScrollReveal();
 }
 
 function renderTiers() {
@@ -914,13 +1163,31 @@ function selectService(card) {
   card.classList.add('selected');
   selectedService = card.dataset.service;
   selectedTierIdx = 0;
+  // Clear all selections when changing service
+  document.querySelectorAll('#menu input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+  });
   renderTiers();
+  updateSelectionUI();
   calculate();
 }
 
 function selectTier(idx) {
   selectedTierIdx = idx;
   document.querySelectorAll('.tier-btn').forEach((b, i) => b.classList.toggle('selected', i === idx));
+  // Uncheck items that exceed new limits
+  const limits = getCurrentLimits();
+  ['protein', 'side', 'salad'].forEach(type => {
+    const checked = document.querySelectorAll(`#menu input[data-type="${type}"]:checked`);
+    const limit = limits[type];
+    if (checked.length > limit) {
+      // Uncheck from the end
+      for (let i = checked.length - 1; i >= limit; i--) {
+        checked[i].checked = false;
+      }
+    }
+  });
+  updateSelectionUI();
   calculate();
 }
 
@@ -936,10 +1203,10 @@ function calculate() {
   const tier = packages[selectedService].tiers[selectedTierIdx];
   const basePrice = tier.price;
 
-  // Sum upgrades
+  // Sum premium upgrades from menu selections
   let upgradeTotal = 0;
-  document.querySelectorAll('.upgrades-section input[type="checkbox"]:checked').forEach(cb => {
-    upgradeTotal += parseFloat(cb.dataset.price);
+  document.querySelectorAll('#menu input[type="checkbox"]:checked').forEach(cb => {
+    upgradeTotal += parseFloat(cb.dataset.price) || 0;
   });
 
   const subtotalPP = basePrice + upgradeTotal;
@@ -949,25 +1216,49 @@ function calculate() {
   const total = allInPP * guests;
 
   document.getElementById('priceBase').textContent = '$' + basePrice.toFixed(2);
-  document.getElementById('priceUpgrades').textContent = '$' + upgradeTotal.toFixed(2);
+  document.getElementById('priceUpgrades').textContent = upgradeTotal > 0 ? '+$' + upgradeTotal.toFixed(2) : '$0.00';
   document.getElementById('priceSubPP').textContent = '$' + subtotalPP.toFixed(2);
-  document.getElementById('priceService').textContent = '$' + (serviceFee * guests).toFixed(2);
-  document.getElementById('priceTax').textContent = '$' + (tax * guests).toFixed(2);
+  document.getElementById('priceService').textContent = '$' + (serviceFee * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  document.getElementById('priceTax').textContent = '$' + (tax * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   document.getElementById('priceTotal').textContent = '$' + total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   document.getElementById('pricePPAllIn').textContent = '$' + allInPP.toFixed(2) + '/person';
 
   // Update summary
+  const items = getSelectedItems();
+  const proteinNames = items.protein.map(i => i.name);
+  const sideNames = items.side.map(i => i.name);
+  const saladNames = items.salad.map(i => i.name);
+
   document.getElementById('selectedSummary').innerHTML =
     `<strong>${packages[selectedService].emoji} ${tier.name}</strong> · ${tier.meats} protein${tier.meats > 1 ? 's' : ''} · ${tier.sides} side${tier.sides > 1 ? 's' : ''} · ${tier.salads} salad · <strong>${guests} guests</strong>`;
 
   // Update WhatsApp link with details
-  const upgrades = [];
-  document.querySelectorAll('.upgrades-section input[type="checkbox"]:checked').forEach(cb => {
-    upgrades.push(cb.parentElement.querySelector('.up-name').textContent);
-  });
-  const msg = `Hi! I'd like a quote for:\n• ${tier.name}\n• ${guests} guests\n• Estimated total: $${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` +
-    (upgrades.length ? `\n• Upgrades: ${upgrades.join(', ')}` : '');
-  document.getElementById('whatsappBtn').href = 'https://wa.me/19783811212?text=' + encodeURIComponent(msg);
+  let msg = `Hi! I'd like a quote for:\n• ${tier.name}\n• ${guests} guests\n• Estimated total: $${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+  if (proteinNames.length) msg += `\n• Proteins: ${proteinNames.join(', ')}`;
+  if (sideNames.length) msg += `\n• Sides: ${sideNames.join(', ')}`;
+  if (saladNames.length) msg += `\n• Salads: ${saladNames.join(', ')}`;
+  document.getElementById('whatsappBtn').href = 'https://wa.me/5561998229223?text=' + encodeURIComponent(msg);
+}
+
+function sendTastingEmail() {
+  const guests = parseInt(document.getElementById('guestInput').value) || 75;
+  const tier = packages[selectedService].tiers[selectedTierIdx];
+  const items = getSelectedItems();
+  const total = document.getElementById('priceTotal').textContent;
+
+  let body = `Hi Comeketo team!\n\nI'd like to book a tasting. Here are my selections:\n\n`;
+  body += `Package: ${tier.name}\n`;
+  body += `Guests: ${guests}\n`;
+  body += `Estimated Total: ${total}\n\n`;
+
+  if (items.protein.length) body += `Proteins: ${items.protein.map(i => i.name + (i.price > 0 ? ` (+$${i.price.toFixed(2)})` : '')).join(', ')}\n`;
+  if (items.side.length) body += `Sides: ${items.side.map(i => i.name + (i.price > 0 ? ` (+$${i.price.toFixed(2)})` : '')).join(', ')}\n`;
+  if (items.salad.length) body += `Salads: ${items.salad.map(i => i.name + (i.price > 0 ? ` (+$${i.price.toFixed(2)})` : '')).join(', ')}\n`;
+
+  body += `\nLooking forward to hearing from you!`;
+
+  const subject = `Tasting Request — ${tier.name} for ${guests} guests`;
+  window.location.href = `mailto:team@comeketocatering.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function toggleCollapse(header) {
@@ -983,6 +1274,19 @@ document.querySelectorAll('.nav-pills a').forEach(a => {
     this.classList.add('active');
   });
 });
+
+// Scroll reveal animation
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
 
 init();
 </script>
