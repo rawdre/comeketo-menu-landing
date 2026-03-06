@@ -686,6 +686,8 @@ footer .legal {
   <a href="#packages">Packages</a>
   <a href="#calculator">Calculator</a>
   <a href="#menu">Full Menu</a>
+  <a href="#appetizers">Appetizers</a>
+  <a href="#desserts">Desserts</a>
   <a href="#contact">Contact</a>
 </nav>
 
@@ -777,6 +779,8 @@ footer .legal {
       <div class="price-breakdown" id="priceBreakdown">
         <div class="price-line"><span class="label">Base price per person</span><span id="priceBase">$0.00</span></div>
         <div class="price-line"><span class="label">Premium upgrades per person</span><span id="priceUpgrades">$0.00</span></div>
+        <div class="price-line"><span class="label">🍢 Appetizers per person</span><span id="priceAppetizers">$0.00</span></div>
+        <div class="price-line"><span class="label">🍮 Desserts per person</span><span id="priceDesserts">$0.00</span></div>
         <div class="price-line"><span class="label">Subtotal per person</span><span id="priceSubPP">$0.00</span></div>
         <div class="price-line"><span class="label">Service & admin fee (24%)</span><span id="priceService">$0.00</span></div>
         <div class="price-line"><span class="label">MA Tax (7%)</span><span id="priceTax">$0.00</span></div>
@@ -956,7 +960,7 @@ footer .legal {
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Rice</span><span class="badge badge-standard">NO UPCHARGE</span></label>
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Beans</span><span class="badge badge-standard">NO UPCHARGE</span></label>
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Tropeiro Beans</span><span class="badge badge-standard">NO UPCHARGE</span></label>
-          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Mashed Potatoes</span><span class="badge badge-standard">NO UPCHARGE</span></label>
+          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Garlic Mashed Potatoes</span><span class="badge badge-standard">NO UPCHARGE</span></label>
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Collard Greens</span><span class="badge badge-standard">NO UPCHARGE</span></label>
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Yuca</span><span class="badge badge-standard">NO UPCHARGE</span></label>
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="side" onchange="onMenuSelect(this)"><span class="name">Plantains</span><span class="badge badge-standard">NO UPCHARGE</span></label>
@@ -996,6 +1000,149 @@ footer .legal {
           <label class="menu-item premium"><input type="checkbox" data-price="2.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Risotto</span><span class="badge badge-premium">+$2.00/pp</span></label>
           <label class="menu-item premium"><input type="checkbox" data-price="3.00" data-type="side" onchange="onMenuSelect(this)"><span class="name">Steamed Asparagus</span><span class="badge badge-premium">+$3.00/pp</span></label>
           <label class="menu-item premium"><input type="checkbox" data-price="3.50" data-type="side" onchange="onMenuSelect(this)"><span class="name">Papa Rellena</span><span class="badge badge-premium">+$3.50/pp</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPETIZERS -->
+<section id="appetizers">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-emoji">🍢</span>
+      <h2 class="section-title shimmer-text">Appetizers</h2>
+      <p class="section-subtitle">Per-person add-ons — select any to enhance your event</p>
+    </div>
+
+    <!-- Cold Appetizers -->
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header open" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🧊</span> Cold Appetizers</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body open">
+        <div class="menu-grid" data-category="appetizer" data-section="cold-apps">
+          <label class="menu-item"><input type="checkbox" data-price="2.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Quinoa & Chickpea Salad in Mini Cups</span><span class="badge badge-premium">+$2.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="5.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Spanakopita Cups</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="3.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Stuffed Mushrooms</span><span class="badge badge-premium">+$3.00/pp</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hot Appetizers -->
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🔥</span> Hot Appetizers</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body">
+        <div class="menu-grid" data-category="appetizer" data-section="hot-apps">
+          <label class="menu-item"><input type="checkbox" data-price="5.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Assorted Croquette</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="3.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Buffalo Chicken Dip</span><span class="badge badge-premium">+$3.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="7.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Chicken Wings</span><span class="badge badge-premium">+$7.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="3.75" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Papa Rellena (Mashed potato balls with meat filling)</span><span class="badge badge-premium">+$3.75/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="2.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Fried Polenta (Corn)</span><span class="badge badge-premium">+$2.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="2.99" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Garlic Bread or Garlic Parmesan Bread</span><span class="badge badge-premium">+$2.99/pp</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seafood Appetizers -->
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🦐</span> Seafood Appetizers</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body">
+        <div class="menu-grid" data-category="appetizer" data-section="seafood-apps">
+          <label class="menu-item"><input type="checkbox" data-price="5.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Garlic Shrimp</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="7.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Grilled Tequila Lime Shrimp</span><span class="badge badge-premium">+$7.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="9.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Scallops & Bacon</span><span class="badge badge-premium">+$9.50/pp</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Croquettes -->
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🟤</span> Croquettes</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body">
+        <div class="menu-grid" data-category="appetizer" data-section="croquettes">
+          <label class="menu-item"><input type="checkbox" data-price="8.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Assorted Croquettes (3-in-1 Sampler)</span><span class="badge badge-premium">+$8.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="3.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Beef & Yuca Croquettes</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="3.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Corn & Cheese Croquettes</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="3.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Chicken & Cheese Croquettes</span><span class="badge badge-premium">+$3.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="3.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Chicken Only Croquettes (Coxinha)</span><span class="badge badge-premium">+$3.50/pp</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pão de Queijo -->
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🧀</span> Pão de Queijo (Cheese Bread)</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body">
+        <div class="menu-grid" data-category="appetizer" data-section="pao-de-queijo">
+          <label class="menu-item"><input type="checkbox" data-price="2.99" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Parmesan Garlic Pão de Queijo</span><span class="badge badge-premium">+$2.99/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="2.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Traditional Classic Pão de Queijo</span><span class="badge badge-premium">+$2.50/pp</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini Turnovers -->
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🥟</span> Mini Turnovers</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body">
+        <div class="menu-grid" data-category="appetizer" data-section="turnovers">
+          <label class="menu-item"><input type="checkbox" data-price="2.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Beef Mini Turnovers</span><span class="badge badge-premium">+$2.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="2.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Cheese Mini Turnovers</span><span class="badge badge-premium">+$2.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="2.50" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Chicken Mini Turnovers</span><span class="badge badge-premium">+$2.50/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="5.95" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Mini Turnover Sampler (3-in-1 Appetizer)</span><span class="badge badge-premium">+$5.95/pp</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meatballs -->
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🍖</span> Meatballs</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body">
+        <div class="menu-grid" data-category="appetizer" data-section="meatballs">
+          <label class="menu-item"><input type="checkbox" data-price="5.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">BBQ Meatballs</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="5.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Italian Meatballs</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="5.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Swedish Meatballs</span><span class="badge badge-premium">+$5.00/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="5.00" data-type="appetizer" onchange="onAddonSelect(this)"><span class="name">Sweet & Sour Meatballs</span><span class="badge badge-premium">+$5.00/pp</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESSERTS -->
+<section id="desserts">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-emoji">🍮</span>
+      <h2 class="section-title shimmer-text">Desserts</h2>
+      <p class="section-subtitle">Sweet finishes — per-person add-ons</p>
+    </div>
+
+    <div class="menu-category reveal">
+      <h3 class="collapsible-header open" onclick="toggleCollapse(this)">
+        <span><span class="cat-emoji">🍮</span> Desserts</span> <span class="arrow">▼</span>
+      </h3>
+      <div class="collapsible-body open">
+        <div class="menu-grid" data-category="dessert" data-section="desserts">
+          <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Flan</span><span class="badge badge-premium">+$4.95/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Brigadeiro</span><span class="badge badge-premium">+$4.95/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Chocolate Truffle</span><span class="badge badge-premium">+$4.95/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Passion Fruit Mousse</span><span class="badge badge-premium">+$4.95/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Chocolate Mousse</span><span class="badge badge-premium">+$4.95/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Grilled Pineapple w/ Cinnamon Sugar</span><span class="badge badge-premium">+$4.95/pp</span></label>
+          <label class="menu-item"><input type="checkbox" data-price="0" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">🍪 Complimentary Cookies</span><span class="badge badge-standard" style="background:linear-gradient(135deg,rgba(201,165,78,0.2),rgba(201,165,78,0.1));color:var(--gold-light);border:1px solid rgba(201,165,78,0.35);letter-spacing:1px;">✨ COMPLIMENTARY</span></label>
         </div>
       </div>
     </div>
@@ -1106,6 +1253,28 @@ function onMenuSelect(checkbox) {
   calculate();
 }
 
+function onAddonSelect(checkbox) {
+  // Appetizers & desserts are unlimited add-ons, just toggle visual + recalculate
+  const item = checkbox.closest('.menu-item');
+  if (checkbox.checked) {
+    item.classList.add('selected-item');
+  } else {
+    item.classList.remove('selected-item');
+  }
+  calculate();
+}
+
+function getSelectedAddons() {
+  const addons = { appetizer: [], dessert: [] };
+  document.querySelectorAll('#appetizers input[type="checkbox"]:checked, #desserts input[type="checkbox"]:checked').forEach(cb => {
+    const type = cb.dataset.type;
+    const name = cb.closest('.menu-item').querySelector('.name').textContent;
+    const price = parseFloat(cb.dataset.price) || 0;
+    if (addons[type]) addons[type].push({ name, price });
+  });
+  return addons;
+}
+
 function updateSelectionUI() {
   const limits = getCurrentLimits();
   const counts = getSelectedCounts();
@@ -1209,7 +1378,14 @@ function calculate() {
     upgradeTotal += parseFloat(cb.dataset.price) || 0;
   });
 
-  const subtotalPP = basePrice + upgradeTotal;
+  // Sum appetizer & dessert add-ons
+  const addons = getSelectedAddons();
+  let appetizerTotal = 0;
+  let dessertTotal = 0;
+  addons.appetizer.forEach(a => appetizerTotal += a.price);
+  addons.dessert.forEach(d => dessertTotal += d.price);
+
+  const subtotalPP = basePrice + upgradeTotal + appetizerTotal + dessertTotal;
   const serviceFee = subtotalPP * 0.24;
   const tax = subtotalPP * 0.07;
   const allInPP = subtotalPP + serviceFee + tax;
@@ -1217,6 +1393,8 @@ function calculate() {
 
   document.getElementById('priceBase').textContent = '$' + basePrice.toFixed(2);
   document.getElementById('priceUpgrades').textContent = upgradeTotal > 0 ? '+$' + upgradeTotal.toFixed(2) : '$0.00';
+  document.getElementById('priceAppetizers').textContent = appetizerTotal > 0 ? '+$' + appetizerTotal.toFixed(2) : '$0.00';
+  document.getElementById('priceDesserts').textContent = dessertTotal > 0 ? '+$' + dessertTotal.toFixed(2) : '$0.00';
   document.getElementById('priceSubPP').textContent = '$' + subtotalPP.toFixed(2);
   document.getElementById('priceService').textContent = '$' + (serviceFee * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   document.getElementById('priceTax').textContent = '$' + (tax * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -1229,14 +1407,20 @@ function calculate() {
   const sideNames = items.side.map(i => i.name);
   const saladNames = items.salad.map(i => i.name);
 
+  let summaryExtra = '';
+  if (addons.appetizer.length) summaryExtra += ` · 🍢 ${addons.appetizer.length} appetizer${addons.appetizer.length > 1 ? 's' : ''}`;
+  if (addons.dessert.length) summaryExtra += ` · 🍮 ${addons.dessert.length} dessert${addons.dessert.length > 1 ? 's' : ''}`;
+
   document.getElementById('selectedSummary').innerHTML =
-    `<strong>${packages[selectedService].emoji} ${tier.name}</strong> · ${tier.meats} protein${tier.meats > 1 ? 's' : ''} · ${tier.sides} side${tier.sides > 1 ? 's' : ''} · ${tier.salads} salad · <strong>${guests} guests</strong>`;
+    `<strong>${packages[selectedService].emoji} ${tier.name}</strong> · ${tier.meats} protein${tier.meats > 1 ? 's' : ''} · ${tier.sides} side${tier.sides > 1 ? 's' : ''} · ${tier.salads} salad${summaryExtra} · <strong>${guests} guests</strong>`;
 
   // Update WhatsApp link with details
   let msg = `Hi! I'd like a quote for:\n• ${tier.name}\n• ${guests} guests\n• Estimated total: $${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
   if (proteinNames.length) msg += `\n• Proteins: ${proteinNames.join(', ')}`;
   if (sideNames.length) msg += `\n• Sides: ${sideNames.join(', ')}`;
   if (saladNames.length) msg += `\n• Salads: ${saladNames.join(', ')}`;
+  if (addons.appetizer.length) msg += `\n• Appetizers: ${addons.appetizer.map(a => a.name + (a.price > 0 ? ' ($' + a.price.toFixed(2) + '/pp)' : '')).join(', ')}`;
+  if (addons.dessert.length) msg += `\n• Desserts: ${addons.dessert.map(d => d.name + (d.price > 0 ? ' ($' + d.price.toFixed(2) + '/pp)' : ' (Complimentary)')).join(', ')}`;
   document.getElementById('whatsappBtn').href = 'https://wa.me/5561998229223?text=' + encodeURIComponent(msg);
 }
 
@@ -1244,6 +1428,7 @@ function sendTastingEmail() {
   const guests = parseInt(document.getElementById('guestInput').value) || 75;
   const tier = packages[selectedService].tiers[selectedTierIdx];
   const items = getSelectedItems();
+  const addons = getSelectedAddons();
   const total = document.getElementById('priceTotal').textContent;
 
   let body = `Hi Comeketo team!\n\nI'd like to book a tasting. Here are my selections:\n\n`;
@@ -1254,6 +1439,8 @@ function sendTastingEmail() {
   if (items.protein.length) body += `Proteins: ${items.protein.map(i => i.name + (i.price > 0 ? ` (+$${i.price.toFixed(2)})` : '')).join(', ')}\n`;
   if (items.side.length) body += `Sides: ${items.side.map(i => i.name + (i.price > 0 ? ` (+$${i.price.toFixed(2)})` : '')).join(', ')}\n`;
   if (items.salad.length) body += `Salads: ${items.salad.map(i => i.name + (i.price > 0 ? ` (+$${i.price.toFixed(2)})` : '')).join(', ')}\n`;
+  if (addons.appetizer.length) body += `Appetizers: ${addons.appetizer.map(a => a.name + (a.price > 0 ? ` (+$${a.price.toFixed(2)}/pp)` : '')).join(', ')}\n`;
+  if (addons.dessert.length) body += `Desserts: ${addons.dessert.map(d => d.name + (d.price > 0 ? ` (+$${d.price.toFixed(2)}/pp)` : ' (Complimentary)')).join(', ')}\n`;
 
   body += `\nLooking forward to hearing from you!`;
 
