@@ -784,6 +784,7 @@ footer .legal {
         <div class="price-line"><span class="label">Subtotal per person</span><span id="priceSubPP">$0.00</span></div>
         <div class="price-line"><span class="label">Service & admin fee (24%)</span><span id="priceService">$0.00</span></div>
         <div class="price-line"><span class="label">MA Tax (7%)</span><span id="priceTax">$0.00</span></div>
+        <div class="price-line"><span class="label">👨‍🍳 Catering Staff</span><span id="priceStaff">$0.00</span></div>
         <div class="price-line total"><span class="label">TOTAL ESTIMATE</span><span id="priceTotal">$0.00</span></div>
         <div class="price-line" style="font-size:0.85rem;"><span class="label">Per person (all-in)</span><span id="pricePPAllIn">$0.00</span></div>
       </div>
@@ -1388,8 +1389,12 @@ function calculate() {
   const subtotalPP = basePrice + upgradeTotal + appetizerTotal + dessertTotal;
   const serviceFee = subtotalPP * 0.24;
   const tax = subtotalPP * 0.07;
+  // Catering Staff charge: Buffet/Churrasco ≤50 = flat $150, >50 = $3/guest. Plated/Family = always $3/guest. NOT taxed.
+  const svcKey = selectedService;
+  const isBuffetOrChurrasco = (svcKey === 'churrasco' || svcKey === 'buffet');
+  const staffCharge = (isBuffetOrChurrasco && guests <= 50) ? 150 : (3 * guests);
   const allInPP = subtotalPP + serviceFee + tax;
-  const total = allInPP * guests;
+  const total = (allInPP * guests) + staffCharge;
 
   document.getElementById('priceBase').textContent = '$' + basePrice.toFixed(2);
   document.getElementById('priceUpgrades').textContent = upgradeTotal > 0 ? '+$' + upgradeTotal.toFixed(2) : '$0.00';
@@ -1398,8 +1403,9 @@ function calculate() {
   document.getElementById('priceSubPP').textContent = '$' + subtotalPP.toFixed(2);
   document.getElementById('priceService').textContent = '$' + (serviceFee * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   document.getElementById('priceTax').textContent = '$' + (tax * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  document.getElementById('priceStaff').textContent = '$' + staffCharge.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (isBuffetOrChurrasco && guests <= 50 ? ' (min.)' : '');
   document.getElementById('priceTotal').textContent = '$' + total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  document.getElementById('pricePPAllIn').textContent = '$' + allInPP.toFixed(2) + '/person';
+  document.getElementById('pricePPAllIn').textContent = '$' + (total / guests).toFixed(2) + '/person';
 
   // Update summary
   const items = getSelectedItems();
