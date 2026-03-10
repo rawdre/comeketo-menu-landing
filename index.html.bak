@@ -665,27 +665,6 @@ footer .legal {
 }
 .collapsible-body.open { max-height: 3000px; }
 
-/* Guest Counter Buttons */
-.guest-btn-minus:hover, .guest-btn-plus:hover {
-  background: var(--gold-light) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(201,165,78,0.3);
-}
-
-/* Gaucho Toggle */
-.gaucho-toggle:hover .gaucho-toggle-btn {
-  background: var(--gold) !important;
-  color: var(--navy) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(201,165,78,0.4);
-}
-
-#gauchoStyleToggle:checked + .gaucho-toggle-btn {
-  background: var(--gold) !important;
-  color: var(--navy) !important;
-  box-shadow: 0 0 20px rgba(201,165,78,0.5);
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--navy-dark); }
@@ -705,10 +684,10 @@ footer .legal {
 <!-- NAV -->
 <nav class="nav-pills" id="nav">
   <a href="#packages">Packages</a>
+  <a href="#calculator">Calculator</a>
   <a href="#menu">Full Menu</a>
   <a href="#appetizers">Appetizers</a>
   <a href="#desserts">Desserts</a>
-  <a href="#calculator">Calculator</a>
   <a href="#contact">Contact</a>
 </nav>
 
@@ -753,7 +732,75 @@ footer .legal {
   </div>
 </section>
 
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-emoji">💰</span>
+      <h2 class="section-title shimmer-text">Instant Price Calculator</h2>
+      <p class="section-subtitle">Select your items and see real-time pricing</p>
+    </div>
 
+    <div class="calculator reveal">
+      <!-- Guest Count -->
+      <div class="calc-row">
+        <label>👥 Guests</label>
+        <div class="guest-input">
+          <input type="range" id="guestSlider" min="20" max="300" value="75" oninput="syncGuests(this.value)">
+          <input type="number" id="guestInput" min="20" max="500" value="75" oninput="syncGuests(this.value)">
+        </div>
+      </div>
+
+      <!-- Selected Package Summary -->
+      <div id="selectedSummary" style="color:var(--gray-300);font-size:0.95rem;margin-bottom:10px;text-align:center;"></div>
+
+      <!-- Selection Counters -->
+      <div class="selection-counters-wrap" id="selectionCounters"></div>
+
+      <!-- Protein Selections -->
+      <div class="upgrades-section">
+        <div class="upgrade-group">
+          <h4><span class="ug-emoji">🥩</span> Proteins <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <div class="upgrade-grid" id="proteinSelections"></div>
+        </div>
+
+        <div class="upgrade-group">
+          <h4><span class="ug-emoji">🥗</span> Salads <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <div class="upgrade-grid" id="saladSelections"></div>
+        </div>
+
+        <div class="upgrade-group">
+          <h4><span class="ug-emoji">🍟</span> Sides <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <div class="upgrade-grid" id="sideSelections"></div>
+        </div>
+      </div>
+
+      <!-- Price Breakdown -->
+      <div class="price-breakdown" id="priceBreakdown">
+        <div class="price-line"><span class="label">Base price per person</span><span id="priceBase">$0.00</span></div>
+        <div class="price-line"><span class="label">Premium upgrades per person</span><span id="priceUpgrades">$0.00</span></div>
+        <div class="price-line"><span class="label">🍢 Appetizers per person</span><span id="priceAppetizers">$0.00</span></div>
+        <div class="price-line"><span class="label">🍮 Desserts per person</span><span id="priceDesserts">$0.00</span></div>
+        <div class="price-line"><span class="label">Subtotal per person</span><span id="priceSubPP">$0.00</span></div>
+        <div class="price-line"><span class="label">Service & admin fee (24%)</span><span id="priceService">$0.00</span></div>
+        <div class="price-line"><span class="label">MA Tax (7%)</span><span id="priceTax">$0.00</span></div>
+        <div class="price-line"><span class="label">👨‍🍳 Catering Staff</span><span id="priceStaff">$0.00</span></div>
+        <div class="price-line total"><span class="label">TOTAL ESTIMATE</span><span id="priceTotal">$0.00</span></div>
+        <div class="price-line" style="font-size:0.85rem;"><span class="label">Per person (all-in)</span><span id="pricePPAllIn">$0.00</span></div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="cta-row">
+        <a class="btn btn-gold" id="whatsappBtn" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">
+          💬 Get a Quote on WhatsApp
+        </a>
+        <a class="btn btn-outline" id="tastingBtn" href="#" onclick="sendTastingEmail(); return false;">
+          🍽️ Book a Tasting
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FULL MENU -->
 <section id="menu">
@@ -872,7 +919,6 @@ footer .legal {
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Lentil Loaf</span><span class="badge badge-standard">NO UPCHARGE</span></label>
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Vegetable Lasagna</span><span class="badge badge-standard">NO UPCHARGE</span></label>
           <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Cauliflower Steak</span><span class="badge badge-standard">NO UPCHARGE</span></label>
-          <label class="menu-item standard"><input type="checkbox" data-price="0" data-type="protein" onchange="onMenuSelect(this)"><span class="name">Pasta Primavera</span><span class="badge badge-standard">NO UPCHARGE</span></label>
         </div>
       </div>
     </div>
@@ -1104,106 +1150,6 @@ footer .legal {
   </div>
 </section>
 
-<!-- CALCULATOR -->
-<section id="calculator">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-emoji">💰</span>
-      <h2 class="section-title shimmer-text">Instant Price Calculator</h2>
-      <p class="section-subtitle">Select your items and see real-time pricing</p>
-    </div>
-
-    <div class="calculator reveal">
-      <!-- Guest Count -->
-      <div class="calc-row">
-        <label>👥 Guests</label>
-        <div class="guest-input">
-          <button type="button" class="guest-btn-minus" onclick="adjustGuests(-5)" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:12px 18px;font-size:1.5rem;font-weight:700;cursor:pointer;transition:all 0.3s;">−</button>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-            <div id="guestDisplay" style="font-size:2.5rem;font-weight:700;color:var(--gold);text-align:center;min-width:80px;">75</div>
-            <input type="number" id="guestInput" min="20" max="500" value="75" oninput="syncGuests(this.value)" style="width:100px;padding:10px;font-size:1.2rem;text-align:center;">
-          </div>
-          <button type="button" class="guest-btn-plus" onclick="adjustGuests(5)" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:12px 18px;font-size:1.5rem;font-weight:700;cursor:pointer;transition:all 0.3s;">+</button>
-        </div>
-      </div>
-      
-      <!-- Range Slider -->
-      <div class="calc-row">
-        <label></label>
-        <div class="guest-input">
-          <input type="range" id="guestSlider" min="20" max="300" value="75" oninput="syncGuests(this.value)" style="width:100%;">
-        </div>
-      </div>
-
-      <!-- Selected Package Summary -->
-      <div id="selectedSummary" style="color:var(--gray-300);font-size:0.95rem;margin-bottom:10px;text-align:center;"></div>
-
-      <!-- Gaucho's Style Toggle (only for Churrasco) -->
-      <div id="gauchoStyleSection" style="display:none;margin-bottom:20px;">
-        <div style="text-align:center;padding:20px;background:rgba(201,165,78,0.08);border:1px solid rgba(201,165,78,0.25);border-radius:15px;">
-          <div onclick="toggleGauchoStyleToggle()" style="display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;">
-            <input type="checkbox" id="gauchoStyleToggle" onchange="toggleGauchoStyle()" style="display:none;">
-            <div class="gaucho-toggle-btn" style="background:var(--navy);color:var(--gold);border:2px solid var(--gold);padding:15px 30px;border-radius:12px;font-size:1.1rem;font-weight:700;transition:all 0.3s;box-shadow:0 4px 15px rgba(201,165,78,0.2);">
-              🔥 Gaucho's Style — Tableside Meat Carving
-            </div>
-            <div style="font-size:0.9rem;color:var(--gray-400);text-align:center;max-width:400px;">Our gauchos carve premium meats directly onto your plate — the authentic Brazilian steakhouse experience</div>
-            <div class="price-badge">+$20.00/pp</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Selection Counters -->
-      <div class="selection-counters-wrap" id="selectionCounters"></div>
-
-      <!-- Protein Selections -->
-      <div class="upgrades-section">
-        <div class="upgrade-group">
-          <h4><span class="ug-emoji">🥩</span> Proteins <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
-          <div class="upgrade-grid" id="proteinSelections"></div>
-        </div>
-
-        <div class="upgrade-group">
-          <h4><span class="ug-emoji">🥗</span> Salads <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
-          <div class="upgrade-grid" id="saladSelections"></div>
-        </div>
-
-        <div class="upgrade-group">
-          <h4><span class="ug-emoji">🍟</span> Sides <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
-          <div class="upgrade-grid" id="sideSelections"></div>
-        </div>
-      </div>
-
-      <!-- Price Breakdown -->
-      <div class="price-breakdown" id="priceBreakdown">
-        <div class="price-line"><span class="label">Base price per person</span><span id="priceBase">$0.00</span></div>
-        <div class="price-line"><span class="label">Premium upgrades per person</span><span id="priceUpgrades">$0.00</span></div>
-        <div class="price-line" id="extraProteinsLine" style="display:none;"><span class="label">Extra proteins per person</span><span id="priceExtraProteins">$0.00</span></div>
-        <div class="price-line" id="extraSaladLine" style="display:none;"><span class="label">Extra salads per person</span><span id="priceExtraSalads">$0.00</span></div>
-        <div class="price-line" id="extraSidesLine" style="display:none;"><span class="label">Extra sides per person</span><span id="priceExtraSides">$0.00</span></div>
-        <div class="price-line" id="gauchoStyleLine" style="display:none;"><span class="label">🔥 Gaucho's Style</span><span id="priceGauchoStyle">$0.00</span></div>
-        <div class="price-line"><span class="label">🍢 Appetizers per person</span><span id="priceAppetizers">$0.00</span></div>
-        <div class="price-line"><span class="label">🍮 Desserts per person</span><span id="priceDesserts">$0.00</span></div>
-        <div class="price-line"><span class="label">Subtotal per person</span><span id="priceSubPP">$0.00</span></div>
-        <div class="price-line"><span class="label">Service & admin fee (24%)</span><span id="priceService">$0.00</span></div>
-        <div class="price-line"><span class="label">MA Tax (7%)</span><span id="priceTax">$0.00</span></div>
-        <div class="price-line"><span class="label">👨‍🍳 Catering Staff</span><span id="priceStaff">$0.00</span></div>
-        <div class="price-line total"><span class="label">TOTAL ESTIMATE</span><span id="priceTotal">$0.00</span></div>
-        <div class="price-line" style="font-size:0.85rem;"><span class="label">Per person (all-in)</span><span id="pricePPAllIn">$0.00</span></div>
-      </div>
-
-      <!-- CTA Buttons -->
-      <div class="cta-row">
-        <a class="btn btn-gold" id="whatsappBtn" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">
-          💬 Get a Quote on WhatsApp
-        </a>
-        <a class="btn btn-outline" id="tastingBtn" href="#" onclick="sendTastingEmail(); return false;">
-          🍽️ Book a Tasting
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer id="contact">
   <div class="reveal">
@@ -1282,18 +1228,6 @@ function getSelectedCounts() {
   return counts;
 }
 
-function getExtraCounts() {
-  const limits = getCurrentLimits();
-  const counts = getSelectedCounts();
-  const extras = { protein: 0, side: 0, salad: 0 };
-  
-  Object.keys(extras).forEach(type => {
-    extras[type] = Math.max(0, counts[type] - limits[type]);
-  });
-  
-  return extras;
-}
-
 function getSelectedItems() {
   const items = { protein: [], side: [], salad: [] };
   document.querySelectorAll('#menu input[type="checkbox"]:checked').forEach(cb => {
@@ -1306,7 +1240,16 @@ function getSelectedItems() {
 }
 
 function onMenuSelect(checkbox) {
-  // Allow unlimited selections, we'll charge for extras
+  const type = checkbox.dataset.type;
+  const limits = getCurrentLimits();
+  const counts = getSelectedCounts();
+
+  // If checking and at limit, prevent
+  if (checkbox.checked && counts[type] > limits[type]) {
+    checkbox.checked = false;
+    return;
+  }
+
   updateSelectionUI();
   calculate();
 }
@@ -1336,7 +1279,6 @@ function getSelectedAddons() {
 function updateSelectionUI() {
   const limits = getCurrentLimits();
   const counts = getSelectedCounts();
-  const extras = getExtraCounts();
 
   // Update counters display
   const counterEl = document.getElementById('selectionCounters');
@@ -1344,20 +1286,23 @@ function updateSelectionUI() {
   counterEl.innerHTML = Object.keys(limits).map(type => {
     const c = counts[type];
     const l = limits[type];
-    const e = extras[type];
     const cls = c >= l ? 'full' : 'within';
-    let text = `${labels[type]}: ${c} of ${l}`;
-    if (e > 0) {
-      const extraCost = type === 'protein' ? '$5.00' : '$3.50';
-      text += ` (+${e} extra @ ${extraCost}/pp)`;
-    }
-    return `<span class="selection-counter ${cls}">${text}</span>`;
+    return `<span class="selection-counter ${cls}">${labels[type]}: ${c} of ${l}</span>`;
   }).join('');
 
-  // Visual selected state for all items
+  // Enable/disable unchecked items based on limits
   ['protein', 'side', 'salad'].forEach(type => {
+    const atLimit = counts[type] >= limits[type];
     document.querySelectorAll(`#menu input[data-type="${type}"]`).forEach(cb => {
       const item = cb.closest('.menu-item');
+      if (!cb.checked && atLimit) {
+        item.classList.add('disabled-item');
+        cb.disabled = true;
+      } else {
+        item.classList.remove('disabled-item');
+        cb.disabled = false;
+      }
+      // Visual selected state
       if (cb.checked) {
         item.classList.add('selected-item');
       } else {
@@ -1365,15 +1310,6 @@ function updateSelectionUI() {
       }
     });
   });
-
-  // Show/hide Gaucho's Style section based on service type
-  const gauchoSection = document.getElementById('gauchoStyleSection');
-  if (selectedService === 'churrasco') {
-    gauchoSection.style.display = 'block';
-  } else {
-    gauchoSection.style.display = 'none';
-    document.getElementById('gauchoStyleToggle').checked = false;
-  }
 }
 
 // ===== INIT =====
@@ -1409,7 +1345,18 @@ function selectService(card) {
 function selectTier(idx) {
   selectedTierIdx = idx;
   document.querySelectorAll('.tier-btn').forEach((b, i) => b.classList.toggle('selected', i === idx));
-  // Don't auto-uncheck anymore since we allow extras
+  // Uncheck items that exceed new limits
+  const limits = getCurrentLimits();
+  ['protein', 'side', 'salad'].forEach(type => {
+    const checked = document.querySelectorAll(`#menu input[data-type="${type}"]:checked`);
+    const limit = limits[type];
+    if (checked.length > limit) {
+      // Uncheck from the end
+      for (let i = checked.length - 1; i >= limit; i--) {
+        checked[i].checked = false;
+      }
+    }
+  });
   updateSelectionUI();
   calculate();
 }
@@ -1418,24 +1365,7 @@ function syncGuests(val) {
   val = Math.max(20, Math.min(500, parseInt(val) || 20));
   document.getElementById('guestSlider').value = Math.min(val, 300);
   document.getElementById('guestInput').value = val;
-  document.getElementById('guestDisplay').textContent = val;
   calculate();
-}
-
-function adjustGuests(step) {
-  const current = parseInt(document.getElementById('guestInput').value) || 75;
-  const newVal = Math.max(20, Math.min(500, current + step));
-  syncGuests(newVal);
-}
-
-function toggleGauchoStyle() {
-  calculate();
-}
-
-function toggleGauchoStyleToggle() {
-  const toggle = document.getElementById('gauchoStyleToggle');
-  toggle.checked = !toggle.checked;
-  toggleGauchoStyle();
 }
 
 function calculate() {
@@ -1443,32 +1373,11 @@ function calculate() {
   const tier = packages[selectedService].tiers[selectedTierIdx];
   const basePrice = tier.price;
 
-  // Sum premium upgrades from menu selections (only for included items)
-  const limits = getCurrentLimits();
+  // Sum premium upgrades from menu selections
   let upgradeTotal = 0;
-  let includedItems = { protein: 0, side: 0, salad: 0 };
-  
   document.querySelectorAll('#menu input[type="checkbox"]:checked').forEach(cb => {
-    const type = cb.dataset.type;
-    const price = parseFloat(cb.dataset.price) || 0;
-    
-    if (includedItems[type] < limits[type]) {
-      // This is within the tier limit, charge the normal premium price
-      upgradeTotal += price;
-      includedItems[type]++;
-    }
-    // Extra items beyond limit are handled separately
+    upgradeTotal += parseFloat(cb.dataset.price) || 0;
   });
-
-  // Calculate extra items beyond tier limits
-  const extras = getExtraCounts();
-  const extraProteinCost = extras.protein * 5.00;
-  const extraSaladCost = extras.salad * 3.50;
-  const extraSideCost = extras.side * 3.50;
-
-  // Gaucho's Style
-  const gauchoStyle = selectedService === 'churrasco' && document.getElementById('gauchoStyleToggle').checked;
-  const gauchoStyleCost = gauchoStyle ? 20.00 : 0;
 
   // Sum appetizer & dessert add-ons
   const addons = getSelectedAddons();
@@ -1477,7 +1386,7 @@ function calculate() {
   addons.appetizer.forEach(a => appetizerTotal += a.price);
   addons.dessert.forEach(d => dessertTotal += d.price);
 
-  const subtotalPP = basePrice + upgradeTotal + extraProteinCost + extraSaladCost + extraSideCost + gauchoStyleCost + appetizerTotal + dessertTotal;
+  const subtotalPP = basePrice + upgradeTotal + appetizerTotal + dessertTotal;
   const serviceFee = subtotalPP * 0.24;
   const tax = subtotalPP * 0.07;
   // Catering Staff charge: Buffet/Churrasco ≤50 = flat $150, >50 = $3/guest. Plated/Family = always $3/guest. NOT taxed.
@@ -1489,41 +1398,6 @@ function calculate() {
 
   document.getElementById('priceBase').textContent = '$' + basePrice.toFixed(2);
   document.getElementById('priceUpgrades').textContent = upgradeTotal > 0 ? '+$' + upgradeTotal.toFixed(2) : '$0.00';
-  
-  // Extra items lines
-  const extraProteinLine = document.getElementById('extraProteinsLine');
-  const extraSaladLine = document.getElementById('extraSaladLine');
-  const extraSidesLine = document.getElementById('extraSidesLine');
-  const gauchoStyleLine = document.getElementById('gauchoStyleLine');
-  
-  if (extraProteinCost > 0) {
-    extraProteinLine.style.display = 'flex';
-    document.getElementById('priceExtraProteins').textContent = '+$' + extraProteinCost.toFixed(2);
-  } else {
-    extraProteinLine.style.display = 'none';
-  }
-  
-  if (extraSaladCost > 0) {
-    extraSaladLine.style.display = 'flex';
-    document.getElementById('priceExtraSalads').textContent = '+$' + extraSaladCost.toFixed(2);
-  } else {
-    extraSaladLine.style.display = 'none';
-  }
-  
-  if (extraSideCost > 0) {
-    extraSidesLine.style.display = 'flex';
-    document.getElementById('priceExtraSides').textContent = '+$' + extraSideCost.toFixed(2);
-  } else {
-    extraSidesLine.style.display = 'none';
-  }
-  
-  if (gauchoStyleCost > 0) {
-    gauchoStyleLine.style.display = 'flex';
-    document.getElementById('priceGauchoStyle').textContent = '+$' + (gauchoStyleCost * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  } else {
-    gauchoStyleLine.style.display = 'none';
-  }
-
   document.getElementById('priceAppetizers').textContent = appetizerTotal > 0 ? '+$' + appetizerTotal.toFixed(2) : '$0.00';
   document.getElementById('priceDesserts').textContent = dessertTotal > 0 ? '+$' + dessertTotal.toFixed(2) : '$0.00';
   document.getElementById('priceSubPP').textContent = '$' + subtotalPP.toFixed(2);
@@ -1540,7 +1414,6 @@ function calculate() {
   const saladNames = items.salad.map(i => i.name);
 
   let summaryExtra = '';
-  if (gauchoStyle) summaryExtra += ' · 🔥 Gaucho\'s Style';
   if (addons.appetizer.length) summaryExtra += ` · 🍢 ${addons.appetizer.length} appetizer${addons.appetizer.length > 1 ? 's' : ''}`;
   if (addons.dessert.length) summaryExtra += ` · 🍮 ${addons.dessert.length} dessert${addons.dessert.length > 1 ? 's' : ''}`;
 
@@ -1549,7 +1422,6 @@ function calculate() {
 
   // Update WhatsApp link with details
   let msg = `Hi! I'd like a quote for:\n• ${tier.name}\n• ${guests} guests\n• Estimated total: $${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-  if (gauchoStyle) msg += `\n• Gaucho's Style (+$20/pp)`;
   if (proteinNames.length) msg += `\n• Proteins: ${proteinNames.join(', ')}`;
   if (sideNames.length) msg += `\n• Sides: ${sideNames.join(', ')}`;
   if (saladNames.length) msg += `\n• Salads: ${saladNames.join(', ')}`;
