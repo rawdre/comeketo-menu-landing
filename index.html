@@ -775,6 +775,60 @@ footer .legal {
 ::-webkit-scrollbar-track { background: var(--navy-dark); }
 ::-webkit-scrollbar-thumb { background: rgba(201,165,78,0.3); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201,165,78,0.5); }
+
+/* === i18n TRANSITIONS === */
+[data-i18n] { transition: opacity 0.25s ease; }
+.i18n-fade { opacity: 0 !important; }
+
+/* === COMING SOON CARDS — Enhanced === */
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(201,165,78,0.08); }
+  50% { border-color: rgba(201,165,78,0.3); }
+}
+.coming-soon-card {
+  padding: 30px 20px !important;
+  transition: opacity 0.4s, transform 0.4s, box-shadow 0.4s, border-color 0.4s !important;
+}
+.coming-soon-card:hover {
+  opacity: 0.65 !important;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(201,165,78,0.12);
+  animation: borderGlow 2s ease-in-out infinite;
+}
+.coming-soon-card .cs-emoji { font-size: 3rem !important; margin-bottom: 12px !important; }
+.coming-soon-card .cs-subtitle {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--gray-500);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* === COOKIE INFO CARD === */
+.cookie-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(201,165,78,0.08), rgba(201,165,78,0.03));
+  border: 1px dashed rgba(201,165,78,0.3);
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+.cookie-info-card:hover {
+  background: linear-gradient(135deg, rgba(201,165,78,0.12), rgba(201,165,78,0.05));
+}
+
+/* === LANGUAGE BUTTONS — Bigger touch targets === */
+.lang-btn {
+  padding: 7px 14px !important;
+  font-size: 0.82rem !important;
+  min-width: 62px;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .lang-btn { padding: 8px 16px !important; font-size: 0.85rem !important; min-width: 68px; }
+}
 </style>
 </head>
 <body>
@@ -782,18 +836,18 @@ footer .legal {
 <!-- HERO -->
 <header class="hero">
   <span class="hero-emoji">🔥</span>
-  <h1 class="shimmer-text">COMEKETO CATERING</h1>
-  <p class="tagline">Brazilian BBQ & Catering</p>
+  <h1 class="shimmer-text" data-i18n="heroTitle">COMEKETO CATERING</h1>
+  <p class="tagline" data-i18n="heroTagline">Brazilian BBQ & Catering</p>
 </header>
 
 <!-- NAV -->
 <nav class="nav-pills" id="nav">
-  <a href="#packages">Packages</a>
-  <a href="#appetizers">Appetizers</a>
-  <a href="#menu">Full Menu</a>
-  <a href="#desserts">Desserts</a>
-  <a href="#calculator">Calculator</a>
-  <a href="#contact">Contact</a>
+  <a href="#packages" data-i18n="navPackages">Packages</a>
+  <a href="#appetizers" data-i18n="navAppetizers">Appetizers</a>
+  <a href="#menu" data-i18n="navFullMenu">Full Menu</a>
+  <a href="#desserts" data-i18n="navDesserts">Desserts</a>
+  <a href="#calculator" data-i18n="navCalculator">Calculator</a>
+  <a href="#contact" data-i18n="navContact">Contact</a>
   <!-- Language Toggle -->
   <div class="lang-toggle" id="langToggle">
     <button class="lang-btn active" data-lang="en" onclick="setLang('en')">🇺🇸 EN</button>
@@ -807,34 +861,34 @@ footer .legal {
   <div class="container">
     <div class="reveal">
       <span class="section-emoji">✨</span>
-      <h2 class="section-title shimmer-text">Choose Your Style</h2>
-      <p class="section-subtitle">4 service types, each with flexible tiers to match your event</p>
+      <h2 class="section-title shimmer-text" data-i18n="chooseStyle">Choose Your Style</h2>
+      <p class="section-subtitle" data-i18n="chooseStyleSub">4 service types, each with flexible tiers to match your event</p>
     </div>
 
     <div class="packages-grid" id="serviceCards">
       <div class="pkg-card selected reveal" data-service="churrasco" onclick="selectService(this)">
         <span class="card-emoji">🔥</span>
-        <h3>Brazilian BBQ (Churrasco)</h3>
-        <div class="price">$29.95 – $46.90 <span>/person</span></div>
-        <div class="details">On-site grilling, upgradeable to Rodizio tableside service with skewers</div>
+        <h3 data-i18n="pkgChurrascoName">Brazilian BBQ (Churrasco)</h3>
+        <div class="price">$29.95 – $46.90 <span data-i18n="perPerson">/person</span></div>
+        <div class="details" data-i18n="pkgChurrascoDesc">On-site grilling, upgradeable to Rodizio tableside service with skewers</div>
       </div>
       <div class="pkg-card reveal" data-service="buffet" onclick="selectService(this)">
         <span class="card-emoji">🍽️</span>
-        <h3>Buffet</h3>
-        <div class="price">$24.90 – $37.90 <span>/person</span></div>
-        <div class="details">Self-serve attended — we handle setup, breakdown & refreshing</div>
+        <h3 data-i18n="pkgBuffetName">Buffet</h3>
+        <div class="price">$24.90 – $37.90 <span data-i18n="perPerson">/person</span></div>
+        <div class="details" data-i18n="pkgBuffetDesc">Self-serve attended — we handle setup, breakdown & refreshing</div>
       </div>
       <div class="pkg-card reveal" data-service="plated" onclick="selectService(this)">
         <span class="card-emoji">🥂</span>
-        <h3>Traditional Plated</h3>
-        <div class="price">$32.40 – $44.10 <span>/person</span></div>
-        <div class="details">Individual seated service — each guest served at table</div>
+        <h3 data-i18n="pkgPlatedName">Traditional Plated</h3>
+        <div class="price">$32.40 – $44.10 <span data-i18n="perPerson">/person</span></div>
+        <div class="details" data-i18n="pkgPlatedDesc">Individual seated service — each guest served at table</div>
       </div>
       <div class="pkg-card reveal" data-service="family" onclick="selectService(this)">
         <span class="card-emoji">👨‍👩‍👧‍👦</span>
-        <h3>Family Style</h3>
-        <div class="price">$32.40 – $44.10 <span>/person</span></div>
-        <div class="details">Shared platters at table — hearty portions designed for sharing</div>
+        <h3 data-i18n="pkgFamilyName">Family Style</h3>
+        <div class="price">$32.40 – $44.10 <span data-i18n="perPerson">/person</span></div>
+        <div class="details" data-i18n="pkgFamilyDesc">Shared platters at table — hearty portions designed for sharing</div>
       </div>
     </div>
 
@@ -843,22 +897,25 @@ footer .legal {
 
     <!-- Coming Soon -->
     <div class="reveal" style="margin-top:40px;">
-      <h3 class="section-title" style="font-size:1.3rem;color:var(--gray-500);margin-bottom:20px;">Coming Soon</h3>
+      <h3 class="section-title" style="font-size:1.3rem;color:var(--gray-500);margin-bottom:20px;" data-i18n="comingSoonTitle">Coming Soon</h3>
       <div class="coming-soon-grid">
         <div class="coming-soon-card">
-          <span class="coming-soon-badge">COMING SOON</span>
+          <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
           <span class="cs-emoji">🇮🇹</span>
-          <span class="cs-name">Italian Menu</span>
+          <span class="cs-name" data-i18n="csItalian">Italian Menu</span>
+          <span class="cs-subtitle" data-i18n="csStayTuned">Stay tuned!</span>
         </div>
         <div class="coming-soon-card">
-          <span class="coming-soon-badge">COMING SOON</span>
+          <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
           <span class="cs-emoji">🇲🇽</span>
-          <span class="cs-name">Mexican / Spanish Menu</span>
+          <span class="cs-name" data-i18n="csMexican">Mexican / Spanish Menu</span>
+          <span class="cs-subtitle" data-i18n="csStayTuned">Stay tuned!</span>
         </div>
         <div class="coming-soon-card">
-          <span class="coming-soon-badge">COMING SOON</span>
+          <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
           <span class="cs-emoji">🇺🇸</span>
-          <span class="cs-name">American Menu</span>
+          <span class="cs-name" data-i18n="csAmerican">American Menu</span>
+          <span class="cs-subtitle" data-i18n="csStayTuned">Stay tuned!</span>
         </div>
       </div>
     </div>
@@ -872,14 +929,14 @@ footer .legal {
   <div class="container">
     <div class="reveal">
       <span class="section-emoji">🍢</span>
-      <h2 class="section-title shimmer-text">Appetizers</h2>
-      <p class="section-subtitle">Per-person add-ons — select any to enhance your event</p>
+      <h2 class="section-title shimmer-text" data-i18n="appetizersTitle">Appetizers</h2>
+      <p class="section-subtitle" data-i18n="appetizersSub">Per-person add-ons — select any to enhance your event</p>
     </div>
 
     <!-- Cold Appetizers -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header open" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🧊</span> Cold Appetizers</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🧊</span> <span data-i18n="catColdApps">Cold Appetizers</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body open">
         <div class="menu-grid" data-category="appetizer" data-section="cold-apps">
@@ -893,7 +950,7 @@ footer .legal {
     <!-- Hot Appetizers -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🔥</span> Hot Appetizers</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🔥</span> <span data-i18n="catHotApps">Hot Appetizers</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="appetizer" data-section="hot-apps">
@@ -910,7 +967,7 @@ footer .legal {
     <!-- Seafood Appetizers -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🦐</span> Seafood Appetizers</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🦐</span> <span data-i18n="catSeafoodApps">Seafood Appetizers</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="appetizer" data-section="seafood-apps">
@@ -924,7 +981,7 @@ footer .legal {
     <!-- Croquettes -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🟤</span> Croquettes</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🟤</span> <span data-i18n="catCroquettes">Croquettes</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="appetizer" data-section="croquettes">
@@ -940,7 +997,7 @@ footer .legal {
     <!-- Pão de Queijo -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🧀</span> Pão de Queijo (Cheese Bread)</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🧀</span> <span data-i18n="catPaoDeQueijo">Pão de Queijo (Cheese Bread)</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="appetizer" data-section="pao-de-queijo">
@@ -953,7 +1010,7 @@ footer .legal {
     <!-- Mini Turnovers -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🥟</span> Mini Turnovers</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥟</span> <span data-i18n="catTurnovers">Mini Turnovers</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="appetizer" data-section="turnovers">
@@ -968,7 +1025,7 @@ footer .legal {
     <!-- Meatballs -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🍖</span> Meatballs</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🍖</span> <span data-i18n="catMeatballs">Meatballs</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="appetizer" data-section="meatballs">
@@ -987,14 +1044,14 @@ footer .legal {
   <div class="container">
     <div class="reveal">
       <span class="section-emoji">📋</span>
-      <h2 class="section-title shimmer-text">Full Menu</h2>
-      <p class="section-subtitle">99 items across all categories — standard at no upcharge, ⭐ premium at upcharge</p>
+      <h2 class="section-title shimmer-text" data-i18n="fullMenuTitle">Full Menu</h2>
+      <p class="section-subtitle" data-i18n="fullMenuSub">99 items across all categories — standard at no upcharge, ⭐ premium at upcharge</p>
     </div>
 
     <!-- Brazilian Sides -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header open" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🇧🇷</span> Brazilian Sides</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🇧🇷</span> <span data-i18n="catBrazilianSides">Brazilian Sides</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body open">
         <div class="menu-grid" data-category="side" data-section="br-sides">
@@ -1014,7 +1071,7 @@ footer .legal {
     <!-- Traditional Sides -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🍟</span> Traditional Sides</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🍟</span> <span data-i18n="catTraditionalSides">Traditional Sides</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="side" data-section="trad-sides">
@@ -1048,7 +1105,7 @@ footer .legal {
     <!-- Brazilian Mains -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header open" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🔥</span> Brazilian Mains (Churrasco)</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🔥</span> <span data-i18n="catChurrascoMains">Brazilian Mains (Churrasco)</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body open">
         <div class="menu-grid" data-category="protein" data-section="churrasco-mains">
@@ -1074,7 +1131,7 @@ footer .legal {
     <!-- Traditional Mains: Beef -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🥩</span> Traditional Mains — Beef</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥩</span> <span data-i18n="catBeefMains">Traditional Mains — Beef</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="protein" data-section="beef-mains">
@@ -1091,7 +1148,7 @@ footer .legal {
     <!-- Traditional Mains: Chicken -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🍗</span> Traditional Mains — Chicken</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🍗</span> <span data-i18n="catChickenMains">Traditional Mains — Chicken</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="protein" data-section="chicken-mains">
@@ -1110,7 +1167,7 @@ footer .legal {
     <!-- Traditional Mains: Pork -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🥓</span> Traditional Mains — Pork</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥓</span> <span data-i18n="catPorkMains">Traditional Mains — Pork</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="protein" data-section="pork-mains">
@@ -1125,7 +1182,7 @@ footer .legal {
     <!-- Traditional Mains: Seafood -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🐟</span> Traditional Mains — Seafood</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🐟</span> <span data-i18n="catSeafoodMains">Traditional Mains — Seafood</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="protein" data-section="seafood-mains">
@@ -1142,7 +1199,7 @@ footer .legal {
     <!-- Traditional Mains: Vegetarian -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🥬</span> Traditional Mains — Vegetarian</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥬</span> <span data-i18n="catVegMains">Traditional Mains — Vegetarian</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="protein" data-section="veg-mains">
@@ -1161,7 +1218,7 @@ footer .legal {
     <!-- Salads -->
     <div class="menu-category reveal">
       <h3 class="collapsible-header" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🥗</span> Salads</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🥗</span> <span data-i18n="catSalads">Salads</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body">
         <div class="menu-grid" data-category="salad" data-section="salads">
@@ -1193,13 +1250,13 @@ footer .legal {
   <div class="container">
     <div class="reveal">
       <span class="section-emoji">🍮</span>
-      <h2 class="section-title shimmer-text">Desserts</h2>
-      <p class="section-subtitle">Sweet finishes — per-person add-ons</p>
+      <h2 class="section-title shimmer-text" data-i18n="dessertsTitle">Desserts</h2>
+      <p class="section-subtitle" data-i18n="dessertsSub">Sweet finishes — per-person add-ons</p>
     </div>
 
     <div class="menu-category reveal">
       <h3 class="collapsible-header open" onclick="toggleCollapse(this)">
-        <span><span class="cat-emoji">🍮</span> Desserts</span> <span class="arrow">▼</span>
+        <span><span class="cat-emoji">🍮</span> <span data-i18n="catDesserts">Desserts</span></span> <span class="arrow">▼</span>
       </h3>
       <div class="collapsible-body open">
         <div class="menu-grid" data-category="dessert" data-section="desserts">
@@ -1209,14 +1266,13 @@ footer .legal {
           <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Passion Fruit Mousse</span><span class="badge badge-premium">+$4.95/pp</span></label>
           <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Chocolate Mousse</span><span class="badge badge-premium">+$4.95/pp</span></label>
           <label class="menu-item"><input type="checkbox" data-price="4.95" data-type="dessert" onchange="onAddonSelect(this)"><span class="name">Grilled Pineapple w/ Cinnamon Sugar</span><span class="badge badge-premium">+$4.95/pp</span></label>
-          <label class="menu-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
-            <div style="display:flex;align-items:center;gap:10px;width:100%;">
-              <input type="checkbox" data-price="0" data-type="dessert" onchange="onAddonSelect(this)">
-              <span class="name">🍪 Attend a Tasting and get Complimentary Cookies</span>
-              <span class="badge badge-standard" style="background:linear-gradient(135deg,rgba(201,165,78,0.2),rgba(201,165,78,0.1));color:var(--gold-light);border:1px solid rgba(201,165,78,0.35);letter-spacing:1px;">✨ COMPLIMENTARY</span>
+          <div class="cookie-info-card">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:1.5rem;">🍪</span>
+              <span data-i18n="cookieTitle" style="color:var(--gold-light);font-weight:600;">Attend a Tasting and get Complimentary Cookies</span>
             </div>
-            <span class="cookie-subtitle">(that is the only way to get them)</span>
-          </label>
+            <span data-i18n="cookieSubtitle" style="font-size:0.8rem;color:var(--gray-500);font-style:italic;padding-left:34px;">(that is the only way to get them)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1228,14 +1284,14 @@ footer .legal {
   <div class="container">
     <div class="reveal">
       <span class="section-emoji">💰</span>
-      <h2 class="section-title shimmer-text">Instant Price Calculator</h2>
-      <p class="section-subtitle">Select your items and see real-time pricing</p>
+      <h2 class="section-title shimmer-text" data-i18n="calcTitle">Instant Price Calculator</h2>
+      <p class="section-subtitle" data-i18n="calcSub">Select your items and see real-time pricing</p>
     </div>
 
     <div class="calculator reveal">
       <!-- Guest Count -->
       <div class="calc-row">
-        <label>👥 Guests</label>
+        <label data-i18n="guestsLabel">👥 Guests</label>
         <div class="guest-input">
           <button type="button" class="guest-btn-minus" onclick="adjustGuests(-5)" style="background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:12px 18px;font-size:1.5rem;font-weight:700;cursor:pointer;transition:all 0.3s;">−</button>
           <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
@@ -1263,9 +1319,9 @@ footer .legal {
           <div onclick="toggleGauchoStyleToggle()" style="display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;">
             <input type="checkbox" id="gauchoStyleToggle" onchange="toggleGauchoStyle()" style="display:none;">
             <div class="gaucho-toggle-btn" style="background:var(--navy);color:var(--gold);border:2px solid var(--gold);padding:15px 30px;border-radius:12px;font-size:1.1rem;font-weight:700;transition:all 0.3s;box-shadow:0 4px 15px rgba(201,165,78,0.2);">
-              🔥 Gaucho's Style — Tableside Meat Carving
+              <span data-i18n="gauchoTitle">🔥 Gaucho's Style — Tableside Meat Carving</span>
             </div>
-            <div style="font-size:0.9rem;color:var(--gray-400);text-align:center;max-width:400px;">Our gauchos carve premium meats directly onto your plate — the authentic Brazilian steakhouse experience</div>
+            <div style="font-size:0.9rem;color:var(--gray-400);text-align:center;max-width:400px;" data-i18n="gauchoDesc">Our gauchos carve premium meats directly onto your plate — the authentic Brazilian steakhouse experience</div>
             <div class="price-badge">+$20.00/pp</div>
           </div>
         </div>
@@ -1277,50 +1333,50 @@ footer .legal {
       <!-- Protein Selections -->
       <div class="upgrades-section">
         <div class="upgrade-group">
-          <h4><span class="ug-emoji">🥩</span> Proteins <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <h4><span class="ug-emoji">🥩</span> <span data-i18n="proteinsLabel">Proteins</span> <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;" data-i18n="selectTierHint">(select based on your tier)</span></h4>
           <div class="upgrade-grid" id="proteinSelections"></div>
         </div>
 
         <div class="upgrade-group">
-          <h4><span class="ug-emoji">🥗</span> Salads <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <h4><span class="ug-emoji">🥗</span> <span data-i18n="saladsLabel">Salads</span> <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;" data-i18n="selectTierHint">(select based on your tier)</span></h4>
           <div class="upgrade-grid" id="saladSelections"></div>
         </div>
 
         <div class="upgrade-group">
-          <h4><span class="ug-emoji">🍟</span> Sides <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;">(select based on your tier)</span></h4>
+          <h4><span class="ug-emoji">🍟</span> <span data-i18n="sidesLabel">Sides</span> <span style="color:var(--gray-500);font-weight:400;font-size:0.8rem;" data-i18n="selectTierHint">(select based on your tier)</span></h4>
           <div class="upgrade-grid" id="sideSelections"></div>
         </div>
       </div>
 
       <!-- Price Breakdown -->
       <div class="price-breakdown" id="priceBreakdown">
-        <div class="price-line"><span class="label">Package base price</span><span id="priceBase">$0.00</span></div>
-        <div class="price-line"><span class="label">Premium upgrades per person</span><span id="priceUpgrades">$0.00</span></div>
-        <div class="price-line" id="extraProteinsLine" style="display:none;"><span class="label">Extra proteins per person</span><span id="priceExtraProteins">$0.00</span></div>
-        <div class="price-line" id="extraSaladLine" style="display:none;"><span class="label">Extra salads per person</span><span id="priceExtraSalads">$0.00</span></div>
-        <div class="price-line" id="extraSidesLine" style="display:none;"><span class="label">Extra sides per person</span><span id="priceExtraSides">$0.00</span></div>
-        <div class="price-line" id="gauchoStyleLine" style="display:none;"><span class="label">🔥 Gaucho's Style</span><span id="priceGauchoStyle">$0.00</span></div>
-        <div class="price-line"><span class="label">🍢 Appetizers per person</span><span id="priceAppetizers">$0.00</span></div>
-        <div class="price-line"><span class="label">🍮 Desserts per person</span><span id="priceDesserts">$0.00</span></div>
-        <div class="price-line"><span class="label">Food subtotal per person</span><span id="priceSubPP">$0.00</span></div>
-        <div class="price-line"><span class="label">Service & admin fee (24%)</span><span id="priceService">$0.00</span></div>
-        <div class="price-line"><span class="label">MA State Tax (6.25%)</span><span id="priceStateTax">$0.00</span></div>
-        <div class="price-line"><span class="label">Fitchburg Local Tax (0.75%)</span><span id="priceLocalTax">$0.00</span></div>
-        <div class="price-line"><span class="label">👨‍🍳 Catering Staff</span><span id="priceStaff">$0.00</span></div>
-        <div class="price-line total"><span class="label">TOTAL ESTIMATE</span><span id="priceTotal">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceBaseLabel">Package base price</span><span id="priceBase">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceUpgradesLabel">Premium upgrades per person</span><span id="priceUpgrades">$0.00</span></div>
+        <div class="price-line" id="extraProteinsLine" style="display:none;"><span class="label" data-i18n="priceExtraProteinsLabel">Extra proteins per person</span><span id="priceExtraProteins">$0.00</span></div>
+        <div class="price-line" id="extraSaladLine" style="display:none;"><span class="label" data-i18n="priceExtraSaladsLabel">Extra salads per person</span><span id="priceExtraSalads">$0.00</span></div>
+        <div class="price-line" id="extraSidesLine" style="display:none;"><span class="label" data-i18n="priceExtraSidesLabel">Extra sides per person</span><span id="priceExtraSides">$0.00</span></div>
+        <div class="price-line" id="gauchoStyleLine" style="display:none;"><span class="label" data-i18n="priceGauchoLabel">🔥 Gaucho's Style</span><span id="priceGauchoStyle">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceAppsLabel">🍢 Appetizers per person</span><span id="priceAppetizers">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceDessertsLabel">🍮 Desserts per person</span><span id="priceDesserts">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceSubPPLabel">Food subtotal per person</span><span id="priceSubPP">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceServiceLabel">Service & admin fee (24%)</span><span id="priceService">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceStateTaxLabel">MA State Tax (6.25%)</span><span id="priceStateTax">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceLocalTaxLabel">Fitchburg Local Tax (0.75%)</span><span id="priceLocalTax">$0.00</span></div>
+        <div class="price-line"><span class="label" data-i18n="priceStaffLabel">👨‍🍳 Catering Staff</span><span id="priceStaff">$0.00</span></div>
+        <div class="price-line total"><span class="label" data-i18n="priceTotalLabel">TOTAL ESTIMATE</span><span id="priceTotal">$0.00</span></div>
 
       </div>
 
       <!-- CTA Buttons -->
       <div class="cta-row">
         <a class="btn btn-gold" id="whatsappBtn" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">
-          💬 Get a Quote on WhatsApp
+          <span data-i18n="ctaWhatsapp">💬 Get a Quote on WhatsApp</span>
         </a>
         <a class="btn btn-outline" id="tastingBtn" href="https://form.jotform.com/260145767354461" target="_blank">
-          🍽️ Book a Tasting
+          <span data-i18n="ctaTasting">🍽️ Book a Tasting</span>
         </a>
       </div>
-      <p class="tasting-subtitle">Use code <strong>ANDRE</strong> · The last tasting we had was a blast, and we can't wait to bring that same energy to our next one.</p>
+      <p class="tasting-subtitle" data-i18n="tastingSub">Use code ANDRE · The last tasting we had was a blast, and we can't wait to bring that same energy to our next one.</p>
     </div>
   </div>
 </section>
@@ -1328,16 +1384,16 @@ footer .legal {
 <!-- FOOTER -->
 <footer id="contact">
   <div class="reveal">
-    <h3 class="shimmer-text">Let's Plan Your Event</h3>
+    <h3 class="shimmer-text" data-i18n="footerTitle">Let's Plan Your Event</h3>
     <div class="contact-info">
       <a href="tel:+19783811212">📞 978-381-1212</a>
       <a href="mailto:team@comeketocatering.com">✉️ team@comeketocatering.com</a>
       <a href="https://comeketocatering.com" target="_blank">🌐 comeketocatering.com</a>
     </div>
     <div class="cta-row" style="margin-top:20px;">
-      <a class="btn btn-gold" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">💬 WhatsApp Us</a>
+      <a class="btn btn-gold" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank"><span data-i18n="footerWhatsapp">💬 WhatsApp Us</span></a>
     </div>
-    <p class="legal">© 2026 Comeketo Catering · 199 Main St, Fitchburg, MA · All prices subject to change</p>
+    <p class="legal" data-i18n="footerLegal">© 2026 Comeketo Catering · 199 Main St, Fitchburg, MA · All prices subject to change</p>
   </div>
 </footer>
 
@@ -1732,15 +1788,267 @@ function initScrollReveal() {
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-// Language toggle (visual only — translations to be added later)
+// ===== TRANSLATION SYSTEM =====
+const translations = {
+  en: {
+    // Hero
+    heroTitle: 'COMEKETO CATERING',
+    heroTagline: 'Brazilian BBQ & Catering',
+    // Nav
+    navPackages: 'Packages', navAppetizers: 'Appetizers', navFullMenu: 'Full Menu',
+    navDesserts: 'Desserts', navCalculator: 'Calculator', navContact: 'Contact',
+    // Packages
+    chooseStyle: 'Choose Your Style',
+    chooseStyleSub: '4 service types, each with flexible tiers to match your event',
+    pkgChurrascoName: 'Brazilian BBQ (Churrasco)',
+    pkgChurrascoDesc: 'On-site grilling, upgradeable to Rodizio tableside service with skewers',
+    pkgBuffetName: 'Buffet',
+    pkgBuffetDesc: 'Self-serve attended — we handle setup, breakdown & refreshing',
+    pkgPlatedName: 'Traditional Plated',
+    pkgPlatedDesc: 'Individual seated service — each guest served at table',
+    pkgFamilyName: 'Family Style',
+    pkgFamilyDesc: 'Shared platters at table — hearty portions designed for sharing',
+    perPerson: '/person',
+    // Coming Soon
+    comingSoonTitle: 'Coming Soon',
+    comingSoonBadge: 'COMING SOON',
+    csItalian: 'Italian Menu', csMexican: 'Mexican / Spanish Menu', csAmerican: 'American Menu',
+    csStayTuned: 'Stay tuned!',
+    // Appetizers
+    appetizersTitle: 'Appetizers',
+    appetizersSub: 'Per-person add-ons — select any to enhance your event',
+    catColdApps: 'Cold Appetizers', catHotApps: 'Hot Appetizers',
+    catSeafoodApps: 'Seafood Appetizers', catCroquettes: 'Croquettes',
+    catPaoDeQueijo: 'Pão de Queijo (Cheese Bread)',
+    catTurnovers: 'Mini Turnovers', catMeatballs: 'Meatballs',
+    // Full Menu
+    fullMenuTitle: 'Full Menu',
+    fullMenuSub: '99 items across all categories — standard at no upcharge, ⭐ premium at upcharge',
+    catBrazilianSides: 'Brazilian Sides', catTraditionalSides: 'Traditional Sides',
+    catChurrascoMains: 'Brazilian Mains (Churrasco)', catBeefMains: 'Traditional Mains — Beef',
+    catChickenMains: 'Traditional Mains — Chicken', catPorkMains: 'Traditional Mains — Pork',
+    catSeafoodMains: 'Traditional Mains — Seafood', catVegMains: 'Traditional Mains — Vegetarian',
+    catSalads: 'Salads',
+    // Desserts
+    dessertsTitle: 'Desserts',
+    dessertsSub: 'Sweet finishes — per-person add-ons',
+    catDesserts: 'Desserts',
+    cookieTitle: 'Attend a Tasting and get Complimentary Cookies',
+    cookieSubtitle: '(that is the only way to get them)',
+    // Calculator
+    calcTitle: 'Instant Price Calculator',
+    calcSub: 'Select your items and see real-time pricing',
+    guestsLabel: '👥 Guests',
+    gauchoTitle: '🔥 Gaucho\'s Style — Tableside Meat Carving',
+    gauchoDesc: 'Our gauchos carve premium meats directly onto your plate — the authentic Brazilian steakhouse experience',
+    proteinsLabel: 'Proteins', saladsLabel: 'Salads', sidesLabel: 'Sides',
+    selectTierHint: '(select based on your tier)',
+    // Price breakdown
+    priceBaseLabel: 'Package base price',
+    priceUpgradesLabel: 'Premium upgrades per person',
+    priceExtraProteinsLabel: 'Extra proteins per person',
+    priceExtraSaladsLabel: 'Extra salads per person',
+    priceExtraSidesLabel: 'Extra sides per person',
+    priceGauchoLabel: '🔥 Gaucho\'s Style',
+    priceAppsLabel: '🍢 Appetizers per person',
+    priceDessertsLabel: '🍮 Desserts per person',
+    priceSubPPLabel: 'Food subtotal per person',
+    priceServiceLabel: 'Service & admin fee (24%)',
+    priceStateTaxLabel: 'MA State Tax (6.25%)',
+    priceLocalTaxLabel: 'Fitchburg Local Tax (0.75%)',
+    priceStaffLabel: '👨‍🍳 Catering Staff',
+    priceTotalLabel: 'TOTAL ESTIMATE',
+    // CTA & Footer
+    ctaWhatsapp: '💬 Get a Quote on WhatsApp',
+    ctaTasting: '🍽️ Book a Tasting',
+    tastingSub: 'Use code ANDRE · The last tasting we had was a blast, and we can\'t wait to bring that same energy to our next one.',
+    footerTitle: 'Let\'s Plan Your Event',
+    footerWhatsapp: '💬 WhatsApp Us',
+    footerLegal: '© 2026 Comeketo Catering · 199 Main St, Fitchburg, MA · All prices subject to change',
+    // Badges (translated programmatically)
+    badgeNoUpcharge: 'NO UPCHARGE',
+    badgeComingSoon: 'COMING SOON',
+    badgePpSuffix: '/pp'
+  },
+  es: {
+    heroTitle: 'COMEKETO CATERING',
+    heroTagline: 'BBQ Brasileño y Catering',
+    navPackages: 'Paquetes', navAppetizers: 'Aperitivos', navFullMenu: 'Menú Completo',
+    navDesserts: 'Postres', navCalculator: 'Calculadora', navContact: 'Contacto',
+    chooseStyle: 'Elige Tu Estilo',
+    chooseStyleSub: '4 tipos de servicio, cada uno con niveles flexibles para tu evento',
+    pkgChurrascoName: 'BBQ Brasileño (Churrasco)',
+    pkgChurrascoDesc: 'Parrilla en sitio, con opción de servicio Rodizio a la mesa con espetos',
+    pkgBuffetName: 'Buffet',
+    pkgBuffetDesc: 'Autoservicio asistido — nosotros montamos, reponemos y recogemos',
+    pkgPlatedName: 'Servicio Emplatado',
+    pkgPlatedDesc: 'Servicio individual en mesa — cada invitado servido en su lugar',
+    pkgFamilyName: 'Estilo Familiar',
+    pkgFamilyDesc: 'Bandejas compartidas en la mesa — porciones generosas para compartir',
+    perPerson: '/persona',
+    comingSoonTitle: 'Próximamente',
+    comingSoonBadge: 'PRÓXIMAMENTE',
+    csItalian: 'Menú Italiano', csMexican: 'Menú Mexicano / Español', csAmerican: 'Menú Americano',
+    csStayTuned: '¡Estén atentos!',
+    appetizersTitle: 'Aperitivos',
+    appetizersSub: 'Complementos por persona — selecciona para mejorar tu evento',
+    catColdApps: 'Aperitivos Fríos', catHotApps: 'Aperitivos Calientes',
+    catSeafoodApps: 'Aperitivos de Mariscos', catCroquettes: 'Croquetas',
+    catPaoDeQueijo: 'Pão de Queijo (Pan de Queso)',
+    catTurnovers: 'Mini Empanadas', catMeatballs: 'Albóndigas',
+    fullMenuTitle: 'Menú Completo',
+    fullMenuSub: '99 opciones en todas las categorías — estándar sin cargo extra, ⭐ premium con cargo extra',
+    catBrazilianSides: 'Acompañamientos Brasileños', catTraditionalSides: 'Acompañamientos Tradicionales',
+    catChurrascoMains: 'Principales Brasileños (Churrasco)', catBeefMains: 'Principales — Res',
+    catChickenMains: 'Principales — Pollo', catPorkMains: 'Principales — Cerdo',
+    catSeafoodMains: 'Principales — Mariscos', catVegMains: 'Principales — Vegetariano',
+    catSalads: 'Ensaladas',
+    dessertsTitle: 'Postres',
+    dessertsSub: 'Finales dulces — complementos por persona',
+    catDesserts: 'Postres',
+    cookieTitle: 'Asiste a una Degustación y recibe Galletas de Cortesía',
+    cookieSubtitle: '(es la única forma de conseguirlas)',
+    calcTitle: 'Calculadora de Precios Instantánea',
+    calcSub: 'Selecciona tus opciones y mira los precios en tiempo real',
+    guestsLabel: '👥 Invitados',
+    gauchoTitle: '🔥 Estilo Gaucho — Corte de Carne en la Mesa',
+    gauchoDesc: 'Nuestros gauchos cortan carnes premium directo en tu plato — la auténtica experiencia de churrascaria brasileña',
+    proteinsLabel: 'Proteínas', saladsLabel: 'Ensaladas', sidesLabel: 'Acompañamientos',
+    selectTierHint: '(selecciona según tu nivel)',
+    priceBaseLabel: 'Precio base del paquete',
+    priceUpgradesLabel: 'Mejoras premium por persona',
+    priceExtraProteinsLabel: 'Proteínas extra por persona',
+    priceExtraSaladsLabel: 'Ensaladas extra por persona',
+    priceExtraSidesLabel: 'Acompañamientos extra por persona',
+    priceGauchoLabel: '🔥 Estilo Gaucho',
+    priceAppsLabel: '🍢 Aperitivos por persona',
+    priceDessertsLabel: '🍮 Postres por persona',
+    priceSubPPLabel: 'Subtotal comida por persona',
+    priceServiceLabel: 'Tarifa de servicio y admin (24%)',
+    priceStateTaxLabel: 'Impuesto estatal MA (6.25%)',
+    priceLocalTaxLabel: 'Impuesto local Fitchburg (0.75%)',
+    priceStaffLabel: '👨‍🍳 Personal de Catering',
+    priceTotalLabel: 'ESTIMACIÓN TOTAL',
+    ctaWhatsapp: '💬 Pide Cotización por WhatsApp',
+    ctaTasting: '🍽️ Reservar Degustación',
+    tastingSub: 'Usa el código ANDRE · Nuestra última degustación fue increíble y no podemos esperar a repetirlo.',
+    footerTitle: 'Planifiquemos Tu Evento',
+    footerWhatsapp: '💬 Escríbenos por WhatsApp',
+    footerLegal: '© 2026 Comeketo Catering · 199 Main St, Fitchburg, MA · Precios sujetos a cambios',
+    badgeNoUpcharge: 'SIN CARGO EXTRA',
+    badgeComingSoon: 'PRÓXIMAMENTE',
+    badgePpSuffix: '/pers.'
+  },
+  pt: {
+    heroTitle: 'COMEKETO CATERING',
+    heroTagline: 'Churrasco e Buffet Brasileiro',
+    navPackages: 'Pacotes', navAppetizers: 'Entradas', navFullMenu: 'Cardápio Completo',
+    navDesserts: 'Sobremesas', navCalculator: 'Calculadora', navContact: 'Contato',
+    chooseStyle: 'Escolha Seu Estilo',
+    chooseStyleSub: '4 tipos de serviço, cada um com opções flexíveis pro seu evento',
+    pkgChurrascoName: 'Churrasco Brasileiro',
+    pkgChurrascoDesc: 'Churrasco no local, com opção de Rodízio na mesa com espetos',
+    pkgBuffetName: 'Buffet',
+    pkgBuffetDesc: 'Self-service assistido — a gente monta, repõe e recolhe tudo',
+    pkgPlatedName: 'Empratado Tradicional',
+    pkgPlatedDesc: 'Serviço individual na mesa — cada convidado servido no lugar',
+    pkgFamilyName: 'Estilo Família',
+    pkgFamilyDesc: 'Travessas compartilhadas na mesa — porções generosas pra todo mundo',
+    perPerson: '/pessoa',
+    comingSoonTitle: 'Em Breve',
+    comingSoonBadge: 'EM BREVE',
+    csItalian: 'Cardápio Italiano', csMexican: 'Cardápio Mexicano / Espanhol', csAmerican: 'Cardápio Americano',
+    csStayTuned: 'Fique ligado!',
+    appetizersTitle: 'Entradas',
+    appetizersSub: 'Adicionais por pessoa — selecione pra turbinar seu evento',
+    catColdApps: 'Entradas Frias', catHotApps: 'Entradas Quentes',
+    catSeafoodApps: 'Entradas de Frutos do Mar', catCroquettes: 'Croquetes',
+    catPaoDeQueijo: 'Pão de Queijo',
+    catTurnovers: 'Mini Pastéis', catMeatballs: 'Almôndegas',
+    fullMenuTitle: 'Cardápio Completo',
+    fullMenuSub: '99 itens em todas as categorias — padrão sem custo extra, ⭐ premium com acréscimo',
+    catBrazilianSides: 'Acompanhamentos Brasileiros', catTraditionalSides: 'Acompanhamentos Tradicionais',
+    catChurrascoMains: 'Principais Brasileiros (Churrasco)', catBeefMains: 'Principais — Carne Bovina',
+    catChickenMains: 'Principais — Frango', catPorkMains: 'Principais — Porco',
+    catSeafoodMains: 'Principais — Frutos do Mar', catVegMains: 'Principais — Vegetariano',
+    catSalads: 'Saladas',
+    dessertsTitle: 'Sobremesas',
+    dessertsSub: 'Finais doces — adicionais por pessoa',
+    catDesserts: 'Sobremesas',
+    cookieTitle: 'Venha pra Degustação e ganhe Cookies de Cortesia',
+    cookieSubtitle: '(é o único jeito de conseguir)',
+    calcTitle: 'Calculadora de Preços Instantânea',
+    calcSub: 'Selecione seus itens e veja os preços em tempo real',
+    guestsLabel: '👥 Convidados',
+    gauchoTitle: '🔥 Estilo Gaúcho — Corte de Carne na Mesa',
+    gauchoDesc: 'Nossos gaúchos cortam carnes premium direto no seu prato — a experiência autêntica de churrascaria brasileira',
+    proteinsLabel: 'Proteínas', saladsLabel: 'Saladas', sidesLabel: 'Acompanhamentos',
+    selectTierHint: '(selecione conforme seu nível)',
+    priceBaseLabel: 'Preço base do pacote',
+    priceUpgradesLabel: 'Upgrades premium por pessoa',
+    priceExtraProteinsLabel: 'Proteínas extras por pessoa',
+    priceExtraSaladsLabel: 'Saladas extras por pessoa',
+    priceExtraSidesLabel: 'Acompanhamentos extras por pessoa',
+    priceGauchoLabel: '🔥 Estilo Gaúcho',
+    priceAppsLabel: '🍢 Entradas por pessoa',
+    priceDessertsLabel: '🍮 Sobremesas por pessoa',
+    priceSubPPLabel: 'Subtotal comida por pessoa',
+    priceServiceLabel: 'Taxa de serviço e admin (24%)',
+    priceStateTaxLabel: 'Imposto estadual MA (6.25%)',
+    priceLocalTaxLabel: 'Imposto local Fitchburg (0.75%)',
+    priceStaffLabel: '👨‍🍳 Equipe de Catering',
+    priceTotalLabel: 'ESTIMATIVA TOTAL',
+    ctaWhatsapp: '💬 Peça Orçamento pelo WhatsApp',
+    ctaTasting: '🍽️ Agendar Degustação',
+    tastingSub: 'Use o código ANDRE · Nossa última degustação foi incrível e a gente mal pode esperar pela próxima.',
+    footerTitle: 'Vamos Planejar Seu Evento',
+    footerWhatsapp: '💬 Fale pelo WhatsApp',
+    footerLegal: '© 2026 Comeketo Catering · 199 Main St, Fitchburg, MA · Preços sujeitos a alteração',
+    badgeNoUpcharge: 'SEM CUSTO EXTRA',
+    badgeComingSoon: 'EM BREVE',
+    badgePpSuffix: '/pessoa'
+  }
+};
+
 let currentLang = 'en';
 function setLang(lang) {
   currentLang = lang;
+  const t = translations[lang];
+  if (!t) return;
+
+  // Update active button
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
   document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en';
-  // TODO: Apply translations from a translations object when ready
+
+  // Fade out
+  const i18nEls = document.querySelectorAll('[data-i18n]');
+  i18nEls.forEach(el => el.classList.add('i18n-fade'));
+
+  setTimeout(() => {
+    // Apply translations
+    i18nEls.forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // Translate badges programmatically
+    document.querySelectorAll('.badge-standard').forEach(b => {
+      const txt = b.textContent.trim();
+      if (txt === 'NO UPCHARGE' || txt === 'SIN CARGO EXTRA' || txt === 'SEM CUSTO EXTRA') {
+        b.textContent = t.badgeNoUpcharge;
+      }
+    });
+    document.querySelectorAll('.badge-premium').forEach(b => {
+      const txt = b.textContent.trim();
+      // Replace the /pp suffix: "+$X.XX/pp" → "+$X.XX/persona" etc.
+      b.textContent = txt.replace(/\/pp$|\/pers\.$|\/pessoa$/, t.badgePpSuffix);
+    });
+
+    // Fade in
+    i18nEls.forEach(el => el.classList.remove('i18n-fade'));
+  }, 200);
 }
 
 init();
