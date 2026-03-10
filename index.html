@@ -804,6 +804,90 @@ footer .legal {
   font-style: italic;
 }
 
+/* Expandable Coming Soon Cards */
+.cs-card-expandable {
+  cursor: pointer !important;
+  opacity: 0.7 !important;
+}
+.cs-card-expandable:hover {
+  opacity: 0.85 !important;
+}
+.cs-card-expandable.expanded {
+  opacity: 1 !important;
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 20px rgba(201,165,78,0.25) !important;
+  animation: none !important;
+}
+.cs-card-expandable .cs-toggle-hint {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--gold);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+.cs-card-expandable.expanded .cs-toggle-hint {
+  opacity: 0;
+}
+.cs-menu-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  background: rgba(36,48,68,0.8);
+  border-radius: 0 0 14px 14px;
+  margin-top: -14px;
+  border: 1px solid transparent;
+  border-top: none;
+}
+.cs-menu-content.open {
+  max-height: 1200px;
+  padding: 20px 16px;
+  border-color: rgba(201,165,78,0.2);
+}
+.cs-prices-tbd {
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  opacity: 0.8;
+}
+.cs-category {
+  margin-bottom: 14px;
+}
+.cs-category:last-child {
+  margin-bottom: 0;
+}
+.cs-category-header {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(201,165,78,0.15);
+}
+.cs-item {
+  font-size: 0.78rem;
+  color: var(--gray-300);
+  padding: 3px 0 3px 12px;
+  position: relative;
+}
+.cs-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  opacity: 0.5;
+}
+.cs-no-expand .cs-subtitle {
+  color: var(--gray-500) !important;
+}
+@media (max-width: 640px) {
+  .cs-menu-content.open { max-height: 1600px; }
+  .coming-soon-grid { grid-template-columns: 1fr !important; }
+}
+
 /* === COOKIE INFO CARD === */
 .cookie-info-card {
   display: flex;
@@ -899,23 +983,95 @@ footer .legal {
     <div class="reveal" style="margin-top:40px;">
       <h3 class="section-title" style="font-size:1.3rem;color:var(--gray-500);margin-bottom:20px;" data-i18n="comingSoonTitle">Coming Soon</h3>
       <div class="coming-soon-grid">
-        <div class="coming-soon-card">
-          <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
-          <span class="cs-emoji">🇮🇹</span>
-          <span class="cs-name" data-i18n="csItalian">Italian Menu</span>
-          <span class="cs-subtitle" data-i18n="csStayTuned">Stay tuned!</span>
+        <!-- Italian Menu — Expandable -->
+        <div>
+          <div class="coming-soon-card cs-card-expandable" id="cs-italian" onclick="toggleComingSoon('italian')">
+            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
+            <span class="cs-emoji">🇮🇹</span>
+            <span class="cs-name" data-i18n="csItalian">Italian Menu</span>
+            <span class="cs-toggle-hint">▼ TAP TO SEE MENU</span>
+          </div>
+          <div class="cs-menu-content" id="cs-menu-italian">
+            <div class="cs-prices-tbd" data-i18n="csPricesTBD">💰 Prices TBD</div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥩 <span data-i18n="csCatMeat">Meat</span> — <span data-i18n="csPick2">Pick 2</span></div>
+              <div class="cs-item">Chicken Parmesan</div>
+              <div class="cs-item">Italian Sausage &amp; Peppers</div>
+              <div class="cs-item">Marinara with Meat Sauce</div>
+              <div class="cs-item">Herb Roasted Chicken</div>
+              <div class="cs-item">Italian-Style Meatballs</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🍚 <span data-i18n="csCatStarches">Starches</span> — <span data-i18n="csPick2">Pick 2</span></div>
+              <div class="cs-item">Penne Alla Vodka</div>
+              <div class="cs-item">Garlic &amp; Herb Roasted Potatoes</div>
+              <div class="cs-item">Lasagna (Classic or Veggie)</div>
+              <div class="cs-item">Pasta Primavera</div>
+              <div class="cs-item">Mashed Potatoes</div>
+              <div class="cs-item">Risotto (Parmigiano or Mushroom)</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥬 <span data-i18n="csCatVegetables">Vegetables</span> — <span data-i18n="csPick1">Pick 1</span></div>
+              <div class="cs-item">Mixed Veggies</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥗 <span data-i18n="csCatSalad">Salad</span> — <span data-i18n="csPick1">Pick 1</span></div>
+              <div class="cs-item">Garden Salad</div>
+              <div class="cs-item">Caesar Salad</div>
+            </div>
+          </div>
         </div>
-        <div class="coming-soon-card">
-          <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
-          <span class="cs-emoji">🇲🇽</span>
-          <span class="cs-name" data-i18n="csMexican">Mexican / Spanish Menu</span>
-          <span class="cs-subtitle" data-i18n="csStayTuned">Stay tuned!</span>
+
+        <!-- Mexican/Spanish Menu — NOT Expandable -->
+        <div>
+          <div class="coming-soon-card cs-no-expand">
+            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
+            <span class="cs-emoji">🇲🇽</span>
+            <span class="cs-name" data-i18n="csMexican">Mexican / Spanish Menu</span>
+            <span class="cs-subtitle" data-i18n="csMenuComingSoon">Menu coming soon</span>
+          </div>
         </div>
-        <div class="coming-soon-card">
-          <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
-          <span class="cs-emoji">🇺🇸</span>
-          <span class="cs-name" data-i18n="csAmerican">American Menu</span>
-          <span class="cs-subtitle" data-i18n="csStayTuned">Stay tuned!</span>
+
+        <!-- American Menu — Expandable -->
+        <div>
+          <div class="coming-soon-card cs-card-expandable" id="cs-american" onclick="toggleComingSoon('american')">
+            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
+            <span class="cs-emoji">🇺🇸</span>
+            <span class="cs-name" data-i18n="csAmerican">American Menu</span>
+            <span class="cs-toggle-hint">▼ TAP TO SEE MENU</span>
+          </div>
+          <div class="cs-menu-content" id="cs-menu-american">
+            <div class="cs-prices-tbd" data-i18n="csPricesTBD">💰 Prices TBD</div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥩 <span data-i18n="csCatMeat">Meat</span> — <span data-i18n="csPick2">Pick 2</span></div>
+              <div class="cs-item">Fried Chicken (Classic or Spicy)</div>
+              <div class="cs-item">Smothered Pork Chops</div>
+              <div class="cs-item">BBQ Pulled Pork</div>
+              <div class="cs-item">Honey-Glazed Baked Ham</div>
+              <div class="cs-item">Turkey Wings (Herb Braised)</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🍚 <span data-i18n="csCatStarches">Starches</span> — <span data-i18n="csPick2">Pick 2</span></div>
+              <div class="cs-item">Macaroni &amp; Cheese (Creamy, Baked)</div>
+              <div class="cs-item">Sweet Potato Casserole</div>
+              <div class="cs-item">Candied Yams</div>
+              <div class="cs-item">Cornbread &amp; Honey Butter</div>
+              <div class="cs-item">Mashed Potatoes with Gravy</div>
+              <div class="cs-item">Red Beans &amp; Rice</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥬 <span data-i18n="csCatVegetables">Vegetables</span> — <span data-i18n="csPick1">Pick 1</span></div>
+              <div class="cs-item">Collard Greens (Smoked Turkey)</div>
+              <div class="cs-item">Green Beans with Bacon</div>
+              <div class="cs-item">Southern Style Mixed Vegetables (Carrots, Peas, Corn)</div>
+              <div class="cs-item">Okra &amp; Tomatoes</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥗 <span data-i18n="csCatSalad">Salad</span> — <span data-i18n="csPick1">Pick 1</span></div>
+              <div class="cs-item">Garden Salad</div>
+              <div class="cs-item">Caesar Salad</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1814,6 +1970,10 @@ const translations = {
     comingSoonBadge: 'COMING SOON',
     csItalian: 'Italian Menu', csMexican: 'Mexican / Spanish Menu', csAmerican: 'American Menu',
     csStayTuned: 'Stay tuned!',
+    csMenuComingSoon: 'Menu coming soon',
+    csPricesTBD: '💰 Prices TBD',
+    csCatMeat: 'Meat', csCatStarches: 'Starches', csCatVegetables: 'Vegetables', csCatSalad: 'Salad',
+    csPick2: 'Pick 2', csPick1: 'Pick 1',
     // Appetizers
     appetizersTitle: 'Appetizers',
     appetizersSub: 'Per-person add-ons — select any to enhance your event',
@@ -1890,6 +2050,10 @@ const translations = {
     comingSoonBadge: 'PRÓXIMAMENTE',
     csItalian: 'Menú Italiano', csMexican: 'Menú Mexicano / Español', csAmerican: 'Menú Americano',
     csStayTuned: '¡Estén atentos!',
+    csMenuComingSoon: 'Menú próximamente',
+    csPricesTBD: '💰 Precios por definir',
+    csCatMeat: 'Carne', csCatStarches: 'Guarniciones', csCatVegetables: 'Vegetales', csCatSalad: 'Ensalada',
+    csPick2: 'Elige 2', csPick1: 'Elige 1',
     appetizersTitle: 'Aperitivos',
     appetizersSub: 'Complementos por persona — selecciona para mejorar tu evento',
     catColdApps: 'Aperitivos Fríos', catHotApps: 'Aperitivos Calientes',
@@ -1959,6 +2123,10 @@ const translations = {
     comingSoonBadge: 'EM BREVE',
     csItalian: 'Cardápio Italiano', csMexican: 'Cardápio Mexicano / Espanhol', csAmerican: 'Cardápio Americano',
     csStayTuned: 'Fique ligado!',
+    csMenuComingSoon: 'Cardápio em breve',
+    csPricesTBD: '💰 Preços a definir',
+    csCatMeat: 'Carnes', csCatStarches: 'Acompanhamentos', csCatVegetables: 'Vegetais', csCatSalad: 'Salada',
+    csPick2: 'Escolha 2', csPick1: 'Escolha 1',
     appetizersTitle: 'Entradas',
     appetizersSub: 'Adicionais por pessoa — selecione pra turbinar seu evento',
     catColdApps: 'Entradas Frias', catHotApps: 'Entradas Quentes',
@@ -2049,6 +2217,16 @@ function setLang(lang) {
     // Fade in
     i18nEls.forEach(el => el.classList.remove('i18n-fade'));
   }, 200);
+}
+
+// Toggle expandable coming soon menus
+function toggleComingSoon(cardId) {
+  if (cardId === 'mexican') return; // Not expandable
+  const card = document.getElementById('cs-' + cardId);
+  const menu = document.getElementById('cs-menu-' + cardId);
+  if (!card || !menu) return;
+  card.classList.toggle('expanded');
+  menu.classList.toggle('open');
 }
 
 init();
