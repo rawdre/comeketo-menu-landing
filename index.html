@@ -693,6 +693,18 @@ footer .legal {
   margin-left: 10px;
   padding-left: 10px;
   border-left: 1px solid rgba(201,165,78,0.2);
+  flex-shrink: 0;
+}
+/* Ensure lang toggle stays visible on all screens */
+@media (min-width: 641px) {
+  .nav-pills {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .lang-toggle {
+    margin-left: auto;
+    padding-left: 16px;
+  }
 }
 .lang-btn {
   background: transparent;
@@ -1022,25 +1034,15 @@ footer .legal {
           </div>
         </div>
 
-        <!-- Mexican/Spanish Menu — NOT Expandable -->
+        <!-- Mexican / Spanish Menu — Expandable (Latin/Southern Venue Menu) -->
         <div>
-          <div class="coming-soon-card cs-no-expand">
+          <div class="coming-soon-card cs-card-expandable" id="cs-mexican" onclick="toggleComingSoon('mexican')">
             <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
             <span class="cs-emoji">🇲🇽</span>
             <span class="cs-name" data-i18n="csMexican">Mexican / Spanish Menu</span>
-            <span class="cs-subtitle" data-i18n="csMenuComingSoon">Menu coming soon</span>
-          </div>
-        </div>
-
-        <!-- American Menu — Expandable -->
-        <div>
-          <div class="coming-soon-card cs-card-expandable" id="cs-american" onclick="toggleComingSoon('american')">
-            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
-            <span class="cs-emoji">🇺🇸</span>
-            <span class="cs-name" data-i18n="csAmerican">American Menu</span>
             <span class="cs-toggle-hint">▼ TAP TO SEE MENU</span>
           </div>
-          <div class="cs-menu-content" id="cs-menu-american">
+          <div class="cs-menu-content" id="cs-menu-mexican">
             <div class="cs-prices-tbd" data-i18n="csPricesTBD">💰 Prices TBD</div>
             <div class="cs-category">
               <div class="cs-category-header">🥩 <span data-i18n="csCatMeat">Meat</span> — <span data-i18n="csPick2">Pick 2</span></div>
@@ -1071,6 +1073,16 @@ footer .legal {
               <div class="cs-item">Garden Salad</div>
               <div class="cs-item">Caesar Salad</div>
             </div>
+          </div>
+        </div>
+
+        <!-- American Menu — NOT Expandable (no menu yet) -->
+        <div>
+          <div class="coming-soon-card cs-no-expand">
+            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
+            <span class="cs-emoji">🇺🇸</span>
+            <span class="cs-name" data-i18n="csAmerican">American Menu</span>
+            <span class="cs-subtitle" data-i18n="csMenuComingSoon">Menu coming soon</span>
           </div>
         </div>
       </div>
@@ -2221,7 +2233,7 @@ function setLang(lang) {
 
 // Toggle expandable coming soon menus
 function toggleComingSoon(cardId) {
-  if (cardId === 'mexican') return; // Not expandable
+  if (cardId === 'american') return; // Not expandable — no menu yet
   const card = document.getElementById('cs-' + cardId);
   const menu = document.getElementById('cs-menu-' + cardId);
   if (!card || !menu) return;
