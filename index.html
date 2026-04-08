@@ -1542,7 +1542,7 @@ footer .legal {
         <a class="btn btn-gold" id="whatsappBtn" href="https://wa.me/5561998229223?text=Hi!%20I'd%20like%20a%20quote%20for%20catering." target="_blank">
           <span data-i18n="ctaWhatsapp">💬 Get a Quote on WhatsApp</span>
         </a>
-        <a class="btn btn-outline" id="tastingBtn" href="https://form.jotform.com/260145767354461" target="_blank">
+        <a class="btn btn-outline" id="tastingBtn" href="https://form.jotform.com/260145767354461" target="_blank" onclick="showQuoteModal(event)">
           <span data-i18n="ctaTasting">🍽️ Book a Tasting</span>
         </a>
       </div>
@@ -2244,6 +2244,170 @@ function toggleComingSoon(cardId) {
 }
 
 init();
+
+// ===== QUOTE MODAL =====
+function showQuoteModal(e) {
+  e.preventDefault();
+
+  const guests = parseInt(document.getElementById('guestInput').value) || 75;
+  const tier = packages[selectedService].tiers[selectedTierIdx];
+  const items = getSelectedItems();
+  const addons = getSelectedAddons();
+
+  // Read already-calculated values from the DOM
+  const totalEl = document.getElementById('priceTotal').textContent;
+  const serviceEl = document.getElementById('priceService').textContent;
+  const stateTaxEl = document.getElementById('priceStateTax').textContent;
+  const localTaxEl = document.getElementById('priceLocalTax').textContent;
+  const staffEl = document.getElementById('priceStaff').textContent;
+  const subPPEl = document.getElementById('priceSubPP').textContent;
+  const baseEl = document.getElementById('priceBase').textContent;
+
+  // Menu selections
+  const proteinList = items.protein.map(i => i.name).join(', ') || '—';
+  const sideList = items.side.map(i => i.name).join(', ') || '—';
+  const saladList = items.salad.map(i => i.name).join(', ') || '—';
+  const appList = addons.appetizer.length ? addons.appetizer.map(a => a.name).join(', ') : null;
+  const desList = addons.dessert.length ? addons.dessert.map(d => d.name).join(', ') : null;
+  const gauchoOn = selectedService === 'churrasco' && document.getElementById('gauchoStyleToggle').checked;
+
+  const serviceLabel = {
+    churrasco: 'Brazilian BBQ (Churrasco)',
+    buffet: 'Buffet',
+    plated: 'Traditional Plated',
+    family: 'Family Style'
+  }[selectedService] || selectedService;
+
+  const modal = document.getElementById('quoteModal');
+  document.getElementById('quoteModalBody').innerHTML = `
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;">
+
+      <!-- HEADER -->
+      <tr>
+        <td bgcolor="#1a1a1a" align="center" style="background-color:#1a1a1a;padding:20px 28px;border-radius:8px 8px 0 0;">
+          <img src="https://comeketocatering.com/wp-content/uploads/2025/01/LOGO_WEB.png" alt="Comeketo Catering" width="140" style="display:block;border:0;">
+        </td>
+      </tr>
+
+      <!-- BODY -->
+      <tr>
+        <td style="background:#ffffff;padding:28px;border-radius:0 0 8px 8px;">
+
+          <p style="margin:0 0 6px;font-size:15px;font-weight:bold;color:#1a1a1a;">Your Personalized Quote</p>
+          <p style="margin:0 0 20px;font-size:13px;color:#666;">Here's what you built. Review it, then confirm to book your tasting.</p>
+
+          <!-- PACKAGE SUMMARY -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;border:1px solid #e8e8e8;border-radius:8px;overflow:hidden;">
+            <tr>
+              <td bgcolor="#1a1a1a" style="background-color:#1a1a1a;padding:12px 18px;">
+                <p style="margin:0;font-size:14px;font-weight:bold;color:#c9a54e;">🍽️ ${tier.name} — ${serviceLabel}</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:14px 18px;background:#fafafa;">
+                <p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>Guests:</strong> ${guests}</p>
+                <p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>🥩 Proteins:</strong> ${proteinList}</p>
+                <p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>🥗 Sides:</strong> ${sideList}</p>
+                <p style="margin:0 ${appList || desList || gauchoOn ? '4px' : '0'};font-size:13px;color:#444;"><strong>🥬 Salads:</strong> ${saladList}</p>
+                ${gauchoOn ? `<p style="margin:0 0 4px;font-size:13px;color:#c9a54e;"><strong>🔥 Gaucho's Style:</strong> +$20.00/pp</p>` : ''}
+                ${appList ? `<p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>🍢 Appetizers:</strong> ${appList}</p>` : ''}
+                ${desList ? `<p style="margin:0;font-size:13px;color:#444;"><strong>🍰 Desserts:</strong> ${desList}</p>` : ''}
+              </td>
+            </tr>
+          </table>
+
+          <!-- PRICE BREAKDOWN -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;border:1px solid #e8e8e8;border-radius:8px;overflow:hidden;">
+            <tr>
+              <td bgcolor="#f9f9f9" style="background-color:#f9f9f9;padding:11px 18px;border-bottom:1px solid #e8e8e8;">
+                <p style="margin:0;font-size:13px;font-weight:bold;color:#555;">Price Breakdown</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:14px 18px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="padding:5px 0;font-size:13px;color:#444;border-bottom:1px solid #f5f5f5;">Food subtotal (${baseEl}/pp × ${guests} guests)</td>
+                    <td align="right" style="padding:5px 0;font-size:13px;color:#333;font-weight:500;border-bottom:1px solid #f5f5f5;">${subPPEl}/pp</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:5px 0;font-size:13px;color:#444;border-bottom:1px solid #f5f5f5;">Service, Fuel &amp; Admin (24%)</td>
+                    <td align="right" style="padding:5px 0;font-size:13px;color:#333;font-weight:500;border-bottom:1px solid #f5f5f5;">${serviceEl}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:5px 0;font-size:13px;color:#444;border-bottom:1px solid #f5f5f5;">MA State Tax (6.25%)</td>
+                    <td align="right" style="padding:5px 0;font-size:13px;color:#333;font-weight:500;border-bottom:1px solid #f5f5f5;">${stateTaxEl}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:5px 0;font-size:13px;color:#444;border-bottom:1px solid #f5f5f5;">Fitchburg Local Tax (0.75%)</td>
+                    <td align="right" style="padding:5px 0;font-size:13px;color:#333;font-weight:500;border-bottom:1px solid #f5f5f5;">${localTaxEl}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:5px 0;font-size:13px;color:#444;border-bottom:1px solid #f5f5f5;">Catering Staff Charge</td>
+                    <td align="right" style="padding:5px 0;font-size:13px;color:#333;font-weight:500;border-bottom:1px solid #f5f5f5;">${staffEl}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 0 4px;font-size:16px;font-weight:bold;color:#1a1a1a;">Estimated Total</td>
+                    <td align="right" style="padding:12px 0 4px;font-size:16px;font-weight:bold;color:#c9a54e;">${totalEl}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <!-- TASTING INVITE -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+            <tr>
+              <td bgcolor="#fff8f0" style="background-color:#fff8f0;border:2px solid #ff4b00;border-radius:8px;padding:18px;">
+                <p style="margin:0 0 4px;font-size:15px;font-weight:bold;color:#cc3300;">🍽️ You're Invited — Free Tasting!</p>
+                <p style="margin:0 0 12px;font-size:13px;color:#888;">Come taste it all in person before you commit. No obligation.</p>
+                <p style="margin:0 0 3px;font-size:14px;color:#333;">📅 <strong>Sunday, April 19th, 2026</strong></p>
+                <p style="margin:0 0 3px;font-size:14px;color:#333;">📍 <strong>199 Main St, Fitchburg, MA 01420</strong></p>
+                <p style="margin:0 0 3px;font-size:14px;color:#333;">🕑 <strong>2:00 PM</strong></p>
+                <p style="margin:0;font-size:14px;color:#333;">🎟️ Registration Code: <strong>ANDRE</strong></p>
+              </td>
+            </tr>
+          </table>
+
+          <!-- ACTIONS -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td style="padding-right:8px;" width="50%">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td bgcolor="#ff4b00" align="center" style="background-color:#ff4b00;border-radius:6px;padding:13px;">
+                      <a href="https://form.jotform.com/260145767354461" target="_blank" style="color:#ffffff;font-size:14px;font-weight:bold;text-decoration:none;font-family:Arial,Helvetica,sans-serif;">✅ Looks Good — Book My Tasting!</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td style="padding-left:8px;" width="50%">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td bgcolor="#f0f0f0" align="center" style="background-color:#f0f0f0;border-radius:6px;padding:13px;">
+                      <a href="#" onclick="document.getElementById('quoteModal').style.display='none';return false;" style="color:#444444;font-size:14px;font-weight:bold;text-decoration:none;font-family:Arial,Helvetica,sans-serif;">✏️ Edit My Order</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>`;
+
+  modal.style.display = 'flex';
+}
 </script>
+
+<!-- QUOTE MODAL -->
+<div id="quoteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#f4f4f4;border-radius:10px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;position:relative;">
+    <button onclick="document.getElementById('quoteModal').style.display='none'" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:#aaa;cursor:pointer;z-index:1;line-height:1;">✕</button>
+    <div id="quoteModalBody" style="padding:0;"></div>
+  </div>
+</div>
+
 </body>
 </html>
