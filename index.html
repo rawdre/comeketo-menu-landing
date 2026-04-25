@@ -32,8 +32,9 @@ body {
   color: var(--white);
   line-height: 1.6;
   background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(201,165,78,0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(201,165,78,0.02) 0%, transparent 50%),
+    radial-gradient(ellipse at 18% 24%, rgba(201,165,78,0.08) 0%, transparent 44%),
+    radial-gradient(ellipse at 78% 10%, rgba(219,191,110,0.06) 0%, transparent 34%),
+    radial-gradient(ellipse at 60% 72%, rgba(239,68,68,0.05) 0%, transparent 36%),
     repeating-linear-gradient(
       0deg,
       transparent,
@@ -99,7 +100,9 @@ body {
 
 /* HERO */
 .hero {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+  background:
+    radial-gradient(circle at top center, rgba(219,191,110,0.14), transparent 28%),
+    linear-gradient(135deg, #202c41 0%, #111827 56%, #0d1420 100%);
   text-align: center;
   padding: 70px 20px 55px;
   border-bottom: 3px solid var(--gold);
@@ -730,7 +733,7 @@ footer .legal {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  max-width: 700px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 .coming-soon-card {
@@ -749,6 +752,26 @@ footer .legal {
 .coming-soon-card:hover { opacity: 0.55; }
 .coming-soon-card .cs-emoji { font-size: 2rem; display: block; margin-bottom: 8px; }
 .coming-soon-card .cs-name { color: var(--gray-300); font-size: 0.95rem; font-weight: 500; }
+.coming-soon-card.live-menu {
+  opacity: 1;
+  cursor: pointer;
+  border-color: rgba(201,165,78,0.2);
+}
+.coming-soon-card.live-menu:hover {
+  opacity: 1;
+  border-color: var(--gold);
+}
+.cs-live-price {
+  display: inline-flex;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(201,165,78,0.12);
+  border: 1px solid rgba(201,165,78,0.24);
+  color: var(--gold-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
 .coming-soon-badge {
   position: absolute;
   top: 10px;
@@ -960,7 +983,7 @@ footer .legal {
     <div class="reveal">
       <span class="section-emoji">✨</span>
       <h2 class="section-title shimmer-text" data-i18n="chooseStyle">Choose Your Style</h2>
-      <p class="section-subtitle" data-i18n="chooseStyleSub">4 service types, each with flexible tiers to match your event</p>
+      <p class="section-subtitle">Eight package paths, from churrasco to specialty menus, with live pricing built into the same calculator</p>
     </div>
 
     <div class="packages-grid" id="serviceCards">
@@ -985,28 +1008,53 @@ footer .legal {
       <div class="pkg-card reveal" data-service="family" onclick="selectService(this)">
         <span class="card-emoji">👨‍👩‍👧‍👦</span>
         <h3 data-i18n="pkgFamilyName">Family Style</h3>
-        <div class="price">$32.40 – $44.10 <span data-i18n="perPerson">/person</span></div>
+        <div class="price">$29.90 – $44.10 <span data-i18n="perPerson">/person</span></div>
         <div class="details" data-i18n="pkgFamilyDesc">Shared platters at table — hearty portions designed for sharing</div>
+      </div>
+      <div class="pkg-card reveal" data-service="italian" onclick="selectService(this)">
+        <span class="card-emoji">🇮🇹</span>
+        <h3>Italian Buffet</h3>
+        <div class="price">$37.90 <span>/person</span></div>
+        <div class="details">Mid-tier specialty menu pricing for now. Meat-forward Italian buffet path with two mains, two starches, and one salad.</div>
+      </div>
+      <div class="pkg-card reveal" data-service="mexican" onclick="selectService(this)">
+        <span class="card-emoji">🇲🇽</span>
+        <h3>Mexican Buffet</h3>
+        <div class="price">$37.90 <span>/person</span></div>
+        <div class="details">Mid-tier specialty menu pricing for now. Holds the Mexican menu at a live selectable price while you refine the exact dishes later.</div>
+      </div>
+      <div class="pkg-card reveal" data-service="spanish" onclick="selectService(this)">
+        <span class="card-emoji">🇪🇸</span>
+        <h3>Spanish Buffet</h3>
+        <div class="price">$37.90 <span>/person</span></div>
+        <div class="details">Mid-tier specialty menu pricing for now. Live package pricing now sits directly in the same calculator flow.</div>
+      </div>
+      <div class="pkg-card reveal" data-service="american" onclick="selectService(this)">
+        <span class="card-emoji">🇺🇸</span>
+        <h3>American Buffet</h3>
+        <div class="price">$37.90 <span>/person</span></div>
+        <div class="details">Mid-tier specialty menu pricing for now. Built with crowd-pleasing American picks for mixed parties and broad appeal.</div>
       </div>
     </div>
 
     <!-- Tier Selector -->
     <div class="tier-selector" id="tierSelector"></div>
 
-    <!-- Coming Soon -->
+    <!-- Specialty Menus -->
     <div class="reveal" style="margin-top:40px;">
-      <h3 class="section-title" style="font-size:1.3rem;color:var(--gray-500);margin-bottom:20px;" data-i18n="comingSoonTitle">Coming Soon</h3>
+      <h3 class="section-title" style="font-size:1.3rem;color:var(--gray-500);margin-bottom:20px;">Specialty Menus</h3>
       <div class="coming-soon-grid">
         <!-- Italian Menu — Expandable -->
         <div>
-          <div class="coming-soon-card cs-card-expandable" id="cs-italian" onclick="toggleComingSoon('italian')">
-            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
+          <div class="coming-soon-card live-menu cs-card-expandable" id="cs-italian" onclick="toggleComingSoon('italian')">
+            <span class="coming-soon-badge">LIVE</span>
             <span class="cs-emoji">🇮🇹</span>
             <span class="cs-name" data-i18n="csItalian">Italian Menu</span>
+            <span class="cs-live-price">$37.90 / person</span>
             <span class="cs-toggle-hint">▼ TAP TO SEE MENU</span>
           </div>
           <div class="cs-menu-content" id="cs-menu-italian">
-            <div class="cs-prices-tbd" data-i18n="csPricesTBD">💰 Prices TBD</div>
+            <div class="cs-prices-tbd">💰 Mid-tier package live at $37.90 / person</div>
             <div class="cs-category">
               <div class="cs-category-header">🥩 <span data-i18n="csCatMeat">Meat</span> — <span data-i18n="csPick2">Pick 2</span></div>
               <div class="cs-item">Chicken Parmesan</div>
@@ -1038,14 +1086,15 @@ footer .legal {
 
         <!-- Mexican / Spanish Menu — Expandable (Latin/Southern Venue Menu) -->
         <div>
-          <div class="coming-soon-card cs-card-expandable" id="cs-mexican" onclick="toggleComingSoon('mexican')">
-            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
+          <div class="coming-soon-card live-menu cs-card-expandable" id="cs-mexican" onclick="toggleComingSoon('mexican')">
+            <span class="coming-soon-badge">LIVE</span>
             <span class="cs-emoji">🇲🇽</span>
             <span class="cs-name" data-i18n="csMexican">Mexican / Spanish Menu</span>
+            <span class="cs-live-price">$37.90 / person</span>
             <span class="cs-toggle-hint">▼ TAP TO SEE MENU</span>
           </div>
           <div class="cs-menu-content" id="cs-menu-mexican">
-            <div class="cs-prices-tbd" data-i18n="csPricesTBD">💰 Prices TBD</div>
+            <div class="cs-prices-tbd">💰 Mid-tier package live at $37.90 / person</div>
             <div class="cs-category">
               <div class="cs-category-header">🥩 <span data-i18n="csCatMeat">Meat</span> — <span data-i18n="csPick2">Pick 2</span></div>
               <div class="cs-item">Fried Chicken (Classic or Spicy)</div>
@@ -1078,13 +1127,44 @@ footer .legal {
           </div>
         </div>
 
-        <!-- American Menu — NOT Expandable (no menu yet) -->
+        <!-- American Menu — Expandable -->
         <div>
-          <div class="coming-soon-card cs-no-expand">
-            <span class="coming-soon-badge" data-i18n="comingSoonBadge">COMING SOON</span>
+          <div class="coming-soon-card live-menu cs-card-expandable" id="cs-american" onclick="toggleComingSoon('american')">
+            <span class="coming-soon-badge">LIVE</span>
             <span class="cs-emoji">🇺🇸</span>
             <span class="cs-name" data-i18n="csAmerican">American Menu</span>
-            <span class="cs-subtitle" data-i18n="csMenuComingSoon">Menu coming soon</span>
+            <span class="cs-live-price">$37.90 / person</span>
+            <span class="cs-toggle-hint">▼ TAP TO SEE MENU</span>
+          </div>
+          <div class="cs-menu-content" id="cs-menu-american">
+            <div class="cs-prices-tbd">💰 Mid-tier package live at $37.90 / person</div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥩 <span data-i18n="csCatMeat">Meat</span> — <span data-i18n="csPick2">Pick 2</span></div>
+              <div class="cs-item">BBQ Pulled Pork</div>
+              <div class="cs-item">Herb Roasted Chicken</div>
+              <div class="cs-item">Italian-Style Meatballs</div>
+              <div class="cs-item">Roast Beef</div>
+              <div class="cs-item">Chicken Broccoli Fettuccine Alfredo</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🍚 <span data-i18n="csCatStarches">Starches</span> — <span data-i18n="csPick2">Pick 2</span></div>
+              <div class="cs-item">Mac &amp; Cheese</div>
+              <div class="cs-item">Mashed Potatoes</div>
+              <div class="cs-item">Oven Roasted Potatoes</div>
+              <div class="cs-item">Penne Alla Vodka</div>
+              <div class="cs-item">Garlic Bread</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥬 <span data-i18n="csCatVegetables">Vegetables</span> — <span data-i18n="csPick1">Pick 1</span></div>
+              <div class="cs-item">Green Beans</div>
+              <div class="cs-item">Vegetable Medley</div>
+              <div class="cs-item">Broccoli</div>
+            </div>
+            <div class="cs-category">
+              <div class="cs-category-header">🥗 <span data-i18n="csCatSalad">Salad</span> — <span data-i18n="csPick1">Pick 1</span></div>
+              <div class="cs-item">Garden Salad</div>
+              <div class="cs-item">Caesar Salad</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1497,6 +1577,76 @@ footer .legal {
         </div>
       </div>
 
+      <!-- Bar Packages -->
+      <div class="upgrades-section" id="barSection" style="margin-bottom:24px;">
+        <div class="upgrade-group">
+          <h4><span class="ug-emoji">🍸</span> Bar & Beverage Service</h4>
+          <div class="upgrade-grid">
+            <label class="upgrade-item selected-item">
+              <input type="radio" name="barPackage" value="none" checked onchange="onBarPackageChange()">
+              <span class="up-name">No bar package</span>
+              <span class="up-price">$0.00</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="radio" name="barPackage" value="cash" onchange="onBarPackageChange()">
+              <span class="up-name">Standard Cash Bar</span>
+              <span class="up-price">$6.50/pp</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="radio" name="barPackage" value="beerwine" onchange="onBarPackageChange()">
+              <span class="up-name">Open Bar: Beer & Wine</span>
+              <span class="up-price">$22.00/pp</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="radio" name="barPackage" value="beerwine-signature" onchange="onBarPackageChange()">
+              <span class="up-name">Beer & Wine + 3 Signature Drinks</span>
+              <span class="up-price">$27.00/pp</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="radio" name="barPackage" value="full" onchange="onBarPackageChange()">
+              <span class="up-name">Open Bar: Full Bar</span>
+              <span class="up-price">$30.00/pp</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="radio" name="barPackage" value="full-signature" onchange="onBarPackageChange()">
+              <span class="up-name">Full Bar + 2 Signature Drinks</span>
+              <span class="up-price">$35.00/pp</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="radio" name="barPackage" value="brunch" onchange="onBarPackageChange()">
+              <span class="up-name">Tea, Juices & Mimosas</span>
+              <span class="up-price">$13.00/pp</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="upgrade-group">
+          <h4><span class="ug-emoji">🥂</span> Bar Upgrades</h4>
+          <div class="upgrade-grid">
+            <label class="upgrade-item">
+              <input type="checkbox" id="barSetupUpgrade" checked disabled>
+              <span class="up-name">Standard Bar Setup</span>
+              <span class="up-price">auto when bar is added</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="checkbox" id="barExtraHourUpgrade" onchange="onBarUpgradeSelect(this)">
+              <span class="up-name">Extra Bar Hour</span>
+              <span class="up-price">package based</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="checkbox" id="champagneUpgrade" onchange="onBarUpgradeSelect(this)">
+              <span class="up-name">Champagne Service</span>
+              <span class="up-price">$3.99/pp</span>
+            </label>
+            <label class="upgrade-item">
+              <input type="checkbox" id="bartenderUpgrade" onchange="onBarUpgradeSelect(this)">
+              <span class="up-name">Bartender Staffing Block</span>
+              <span class="up-price">$100 fixed</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <!-- Selection Counters -->
       <div class="selection-counters-wrap" id="selectionCounters"></div>
 
@@ -1528,6 +1678,8 @@ footer .legal {
         <div class="price-line" id="gauchoStyleLine" style="display:none;"><span class="label" data-i18n="priceGauchoLabel">🔥 Gaucho's Style</span><span id="priceGauchoStyle">$0.00</span></div>
         <div class="price-line"><span class="label" data-i18n="priceAppsLabel">🍢 Appetizers per person</span><span id="priceAppetizers">$0.00</span></div>
         <div class="price-line"><span class="label" data-i18n="priceDessertsLabel">🍮 Desserts per person</span><span id="priceDesserts">$0.00</span></div>
+        <div class="price-line"><span class="label">🍷 Bar package per person</span><span id="priceBarPackage">$0.00</span></div>
+        <div class="price-line"><span class="label">🍸 Bar upgrades</span><span id="priceBarUpgrades">$0.00</span></div>
         <div class="price-line"><span class="label" data-i18n="priceSubPPLabel">Food subtotal per person</span><span id="priceSubPP">$0.00</span></div>
         <div class="price-line"><span class="label" data-i18n="priceServiceLabel">Service & admin fee (24%)</span><span id="priceService">$0.00</span></div>
         <div class="price-line"><span class="label" data-i18n="priceStateTaxLabel">MA State Tax (6.25%)</span><span id="priceStateTax">$0.00</span></div>
@@ -1602,11 +1754,49 @@ const packages = {
     name: 'Family Style',
     emoji: '👨‍👩‍👧‍👦',
     tiers: [
-      { name: 'Mini Family', meats: 1, sides: 2, salads: 1, price: 32.40 },
-      { name: 'Full Family', meats: 2, sides: 4, salads: 1, price: 38.40 },
+      { name: 'Mini Family', meats: 1, sides: 2, salads: 1, price: 29.90 },
+      { name: 'Full Family', meats: 2, sides: 4, salads: 1, price: 35.90 },
       { name: 'Deluxe Family', meats: 3, sides: 6, salads: 1, price: 44.10 }
     ]
+  },
+  italian: {
+    name: 'Italian Buffet',
+    emoji: '🇮🇹',
+    tiers: [
+      { name: 'Italian Mid Tier', meats: 2, sides: 2, salads: 1, price: 37.90 }
+    ]
+  },
+  mexican: {
+    name: 'Mexican Buffet',
+    emoji: '🇲🇽',
+    tiers: [
+      { name: 'Mexican Mid Tier', meats: 2, sides: 2, salads: 1, price: 37.90 }
+    ]
+  },
+  spanish: {
+    name: 'Spanish Buffet',
+    emoji: '🇪🇸',
+    tiers: [
+      { name: 'Spanish Mid Tier', meats: 2, sides: 2, salads: 1, price: 37.90 }
+    ]
+  },
+  american: {
+    name: 'American Buffet',
+    emoji: '🇺🇸',
+    tiers: [
+      { name: 'American Mid Tier', meats: 2, sides: 2, salads: 1, price: 37.90 }
+    ]
   }
+};
+
+const barPackages = {
+  none: { name: 'No Bar Package', price: 0, extraHourPrice: 0 },
+  cash: { name: 'Standard Cash Bar', price: 6.50, extraHourPrice: 1.95 },
+  beerwine: { name: 'Open Bar: Beer & Wine', price: 22.00, extraHourPrice: 7.00 },
+  'beerwine-signature': { name: 'Beer & Wine + 3 Signature Drinks', price: 27.00, extraHourPrice: 8.00 },
+  full: { name: 'Open Bar: Full Bar', price: 30.00, extraHourPrice: 8.00 },
+  'full-signature': { name: 'Full Bar + 2 Signature Drinks', price: 35.00, extraHourPrice: 9.00 },
+  brunch: { name: 'Tea, Juices & Mimosas', price: 13.00, extraHourPrice: 0 }
 };
 
 // ===== STATE =====
@@ -1669,6 +1859,37 @@ function onAddonSelect(checkbox) {
   calculate();
 }
 
+function onBarUpgradeSelect(input) {
+  const item = input.closest('.upgrade-item');
+  if (input.checked) {
+    item.classList.add('selected-item');
+  } else {
+    item.classList.remove('selected-item');
+  }
+  calculate();
+}
+
+function onBarPackageChange() {
+  syncAutoBarSetup();
+  updateSelectionUI();
+  calculate();
+}
+
+function getSelectedBarPackage() {
+  const selected = document.querySelector('input[name="barPackage"]:checked');
+  const key = selected ? selected.value : 'none';
+  return { key, ...(barPackages[key] || barPackages.none) };
+}
+
+function syncAutoBarSetup() {
+  const selectedBar = getSelectedBarPackage();
+  const input = document.getElementById('barSetupUpgrade');
+  const item = input.closest('.upgrade-item');
+  const hasBar = selectedBar.key !== 'none';
+  input.checked = hasBar;
+  item.classList.toggle('selected-item', hasBar);
+}
+
 function getSelectedAddons() {
   const addons = { appetizer: [], dessert: [] };
   document.querySelectorAll('#appetizers input[type="checkbox"]:checked, #desserts input[type="checkbox"]:checked').forEach(cb => {
@@ -1711,6 +1932,12 @@ function updateSelectionUI() {
         item.classList.remove('selected-item');
       }
     });
+  });
+
+  syncAutoBarSetup();
+  document.querySelectorAll('input[name="barPackage"]').forEach(input => {
+    const item = input.closest('.upgrade-item');
+    item.classList.toggle('selected-item', input.checked);
   });
 
   // Show/hide Gaucho's Style section based on service type
@@ -1824,17 +2051,28 @@ function calculate() {
   addons.appetizer.forEach(a => appetizerTotal += a.price);
   addons.dessert.forEach(d => dessertTotal += d.price);
 
-  const subtotalPP = basePrice + upgradeTotal + extraProteinCost + extraSaladCost + extraSideCost + gauchoStyleCost + appetizerTotal + dessertTotal;
+  // Bar packages and upgrades
+  const selectedBar = getSelectedBarPackage();
+  const barSetupFixed = selectedBar.key !== 'none' ? 150 : 0;
+  const barExtraHourPP = document.getElementById('barExtraHourUpgrade').checked ? selectedBar.extraHourPrice : 0;
+  const champagnePP = document.getElementById('champagneUpgrade').checked ? 3.99 : 0;
+  const bartenderFixed = document.getElementById('bartenderUpgrade').checked ? 100 : 0;
+  const barPackagePP = selectedBar.price;
+  const barUpgradesPP = barExtraHourPP + champagnePP;
+  const barFixed = barSetupFixed + bartenderFixed;
+
+  const foodSubtotalPP = basePrice + upgradeTotal + extraProteinCost + extraSaladCost + extraSideCost + gauchoStyleCost + appetizerTotal + dessertTotal;
+  const subtotalPP = foodSubtotalPP + barPackagePP + barUpgradesPP;
   const serviceFee = subtotalPP * 0.24;
   const stateTax = subtotalPP * 0.0625;
   const localTax = subtotalPP * 0.0075;
   const tax = stateTax + localTax;
   // Catering Staff charge: Buffet/Churrasco ≤50 = flat $150, >50 = $3/guest. Plated/Family = always $3/guest. NOT taxed.
   const svcKey = selectedService;
-  const isBuffetOrChurrasco = (svcKey === 'churrasco' || svcKey === 'buffet');
+  const isBuffetOrChurrasco = (svcKey === 'churrasco' || svcKey === 'buffet' || svcKey === 'italian' || svcKey === 'mexican' || svcKey === 'spanish');
   const staffCharge = (isBuffetOrChurrasco && guests <= 50) ? 150 : (3 * guests);
   const allInPP = subtotalPP + serviceFee + tax;
-  const total = (allInPP * guests) + staffCharge;
+  const total = (allInPP * guests) + staffCharge + barFixed;
 
   document.getElementById('priceBase').textContent = '$' + basePrice.toFixed(2);
   document.getElementById('priceUpgrades').textContent = upgradeTotal > 0 ? '+$' + upgradeTotal.toFixed(2) : '$0.00';
@@ -1875,11 +2113,15 @@ function calculate() {
 
   document.getElementById('priceAppetizers').textContent = appetizerTotal > 0 ? '+$' + appetizerTotal.toFixed(2) : '$0.00';
   document.getElementById('priceDesserts').textContent = dessertTotal > 0 ? '+$' + dessertTotal.toFixed(2) : '$0.00';
+  document.getElementById('priceBarPackage').textContent = barPackagePP > 0 ? '+$' + barPackagePP.toFixed(2) : '$0.00';
+  document.getElementById('priceBarUpgrades').textContent = (barUpgradesPP > 0 || barFixed > 0)
+    ? '+$' + barUpgradesPP.toFixed(2) + (barFixed > 0 ? ` + $${barFixed.toFixed(2)} fixed` : '')
+    : '$0.00';
   document.getElementById('priceSubPP').textContent = '$' + subtotalPP.toFixed(2);
   document.getElementById('priceService').textContent = '$' + (serviceFee * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   document.getElementById('priceStateTax').textContent = '$' + (stateTax * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   document.getElementById('priceLocalTax').textContent = '$' + (localTax * guests).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  document.getElementById('priceStaff').textContent = '$' + staffCharge.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (isBuffetOrChurrasco && guests <= 50 ? ' (min.)' : '');
+  document.getElementById('priceStaff').textContent = '$' + (staffCharge + barFixed).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (barFixed > 0 ? ' incl. bar fixed' : (isBuffetOrChurrasco && guests <= 50 ? ' (min.)' : ''));
   document.getElementById('priceTotal').textContent = '$' + total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   // Update summary
@@ -1892,6 +2134,7 @@ function calculate() {
   if (gauchoStyle) summaryExtra += ' · 🔥 Gaucho\'s Style';
   if (addons.appetizer.length) summaryExtra += ` · 🍢 ${addons.appetizer.length} appetizer${addons.appetizer.length > 1 ? 's' : ''}`;
   if (addons.dessert.length) summaryExtra += ` · 🍮 ${addons.dessert.length} dessert${addons.dessert.length > 1 ? 's' : ''}`;
+  if (selectedBar.key !== 'none') summaryExtra += ` · 🍸 ${selectedBar.name}`;
 
   document.getElementById('selectedSummary').innerHTML =
     `<strong>${packages[selectedService].emoji} ${tier.name}</strong> · ${tier.meats} protein${tier.meats > 1 ? 's' : ''} · ${tier.sides} side${tier.sides > 1 ? 's' : ''} · ${tier.salads} salad${summaryExtra} · <strong>${guests} guests</strong>`;
@@ -1899,6 +2142,10 @@ function calculate() {
   // Update WhatsApp link with details
   let msg = `Hi! I'd like a quote for:\n• ${tier.name}\n• ${guests} guests\n• Estimated total: $${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
   if (gauchoStyle) msg += `\n• Gaucho's Style (+$20/pp)`;
+  if (selectedBar.key !== 'none') msg += `\n• Bar: ${selectedBar.name}${barExtraHourPP > 0 ? ` + extra hour ($${barExtraHourPP.toFixed(2)}/pp)` : ''}`;
+  if (champagnePP > 0) msg += `\n• Champagne service (+$${champagnePP.toFixed(2)}/pp)`;
+  if (barSetupFixed > 0) msg += `\n• Standard bar setup ($${barSetupFixed.toFixed(2)} fixed)`;
+  if (bartenderFixed > 0) msg += `\n• Bartender staffing ($${bartenderFixed.toFixed(2)} fixed)`;
   if (proteinNames.length) msg += `\n• Proteins: ${proteinNames.join(', ')}`;
   if (sideNames.length) msg += `\n• Sides: ${sideNames.join(', ')}`;
   if (saladNames.length) msg += `\n• Salads: ${saladNames.join(', ')}`;
@@ -2235,7 +2482,6 @@ function setLang(lang) {
 
 // Toggle expandable coming soon menus
 function toggleComingSoon(cardId) {
-  if (cardId === 'american') return; // Not expandable — no menu yet
   const card = document.getElementById('cs-' + cardId);
   const menu = document.getElementById('cs-menu-' + cardId);
   if (!card || !menu) return;
@@ -2275,8 +2521,13 @@ function showQuoteModal(e) {
     churrasco: 'Brazilian BBQ (Churrasco)',
     buffet: 'Buffet',
     plated: 'Traditional Plated',
-    family: 'Family Style'
+    family: 'Family Style',
+    italian: 'Italian Buffet',
+    mexican: 'Mexican Buffet',
+    spanish: 'Spanish Buffet',
+    american: 'American Buffet'
   }[selectedService] || selectedService;
+  const selectedBar = getSelectedBarPackage();
 
   const modal = document.getElementById('quoteModal');
   document.getElementById('quoteModalBody').innerHTML = `
@@ -2309,6 +2560,7 @@ function showQuoteModal(e) {
                 <p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>🥩 Proteins:</strong> ${proteinList}</p>
                 <p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>🥗 Sides:</strong> ${sideList}</p>
                 <p style="margin:0 ${appList || desList || gauchoOn ? '4px' : '0'};font-size:13px;color:#444;"><strong>🥬 Salads:</strong> ${saladList}</p>
+                ${selectedBar.key !== 'none' ? `<p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>🍸 Bar:</strong> ${selectedBar.name}</p>` : ''}
                 ${gauchoOn ? `<p style="margin:0 0 4px;font-size:13px;color:#c9a54e;"><strong>🔥 Gaucho's Style:</strong> +$20.00/pp</p>` : ''}
                 ${appList ? `<p style="margin:0 0 4px;font-size:13px;color:#444;"><strong>🍢 Appetizers:</strong> ${appList}</p>` : ''}
                 ${desList ? `<p style="margin:0;font-size:13px;color:#444;"><strong>🍰 Desserts:</strong> ${desList}</p>` : ''}
