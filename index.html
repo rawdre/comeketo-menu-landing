@@ -785,6 +785,109 @@ footer .legal {
   border-radius: 4px;
   border: 1px solid rgba(201,165,78,0.3);
 }
+/* TRAY MENU CALLOUT */
+.tray-menu-callout {
+  margin-top: 40px;
+  padding: 32px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(201,165,78,0.18) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(36,48,68,0.85), rgba(26,35,50,0.85));
+  border: 1px solid rgba(201,165,78,0.32);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.03);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 26px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.tray-menu-callout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 60%, rgba(201,165,78,0.05));
+  pointer-events: none;
+}
+.tray-menu-callout .tray-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(201,165,78,0.18);
+  border: 1px solid rgba(201,165,78,0.36);
+  color: var(--gold-light);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.tray-menu-callout h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.tray-menu-callout h3 .accent {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.tray-menu-callout p {
+  color: var(--gray-300);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  max-width: 620px;
+  margin-bottom: 18px;
+}
+.tray-menu-callout .tray-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.tray-menu-callout .tray-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(201,165,78,0.10);
+  border: 1px solid rgba(201,165,78,0.22);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.tray-menu-callout .tray-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 30px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #1a2332;
+  font-weight: 800;
+  font-size: 0.98rem;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  box-shadow: 0 14px 32px rgba(201,165,78,0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+.tray-menu-callout .tray-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(201,165,78,0.38);
+}
+@media (max-width: 720px) {
+  .tray-menu-callout { grid-template-columns: 1fr; padding: 26px; }
+  .tray-menu-callout .tray-cta { width: 100%; justify-content: center; }
+}
 @media (max-width: 640px) {
   .coming-soon-grid { grid-template-columns: 1fr; max-width: 280px; }
   .lang-toggle { margin-left: 0; padding-left: 0; border-left: none; }
@@ -1169,6 +1272,22 @@ footer .legal {
         </div>
       </div>
     </div>
+
+    <!-- TRAY MENU CALLOUT -->
+    <a class="tray-menu-callout reveal" href="https://rawdre.github.io/ai-consulting/comeketo/menus/tray-menu.html" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer;">
+      <div>
+        <span class="tray-badge">★ New · Catering by the Tray</span>
+        <h3>Italian · Mexican · <span class="accent">American</span> Tray Menu</h3>
+        <p>Prefer to skip the per-person calculator and order by the tray? Our full tray menu has live pricing across appetizers, salads, sides, seafood, beef &amp; pork, chicken and Mexican bars — small trays feed ~10, large trays feed ~20.</p>
+        <div class="tray-meta">
+          <span class="tray-pill">Small ~10 people</span>
+          <span class="tray-pill">Large ~20 people</span>
+          <span class="tray-pill">À la carte</span>
+          <span class="tray-pill">Drop-off or full-service</span>
+        </div>
+      </div>
+      <span class="tray-cta">View the Tray Menu →</span>
+    </a>
   </div>
 </section>
 
